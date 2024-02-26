@@ -1,0 +1,70 @@
+<div class="col-md-6 offset-md-3">
+  <h3 class="text-center">Edición de Pokemon</h3>
+  <form (ngSubmit)="onSubmit()" #pokemonForm="ngForm">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="poke.nombre"
+        name="nombre"
+        required
+        minlength="4"
+        maxlength="10"
+        placeholder="Ingrese el nombre del Pokemon"
+        #nombre="ngModel"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Experiencia:</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="poke.experiencia"
+        name="experiencia"
+        required
+        placeholder="Ingrese la experiencia del Pokemon"
+        #experiencia="ngModel"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Nivel de evolución:</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="poke.nivel_evolucion"
+        name="nivel_evolucion"
+        required
+        placeholder="Ingrese el nivel de evolución del Pokemon"
+        #nivelEvolucion="ngModel"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Evoluciona:</label>
+      <select
+        class="form-control"
+        [(ngModel)]="poke.evoluciona"
+        name="evoluciona"
+        required
+      >
+        <option [ngValue]="true">Sí</option>
+        <option [ngValue]="false">No</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Imagen:</label>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="form-control-file"
+        #imagenInput
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+</div>

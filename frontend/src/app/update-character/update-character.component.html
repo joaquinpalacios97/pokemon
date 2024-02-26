@@ -1,0 +1,31 @@
+<div class="col-md-6 offset-md-3">
+  <h3 class="text-center">Edición de Personaje</h3>
+  <form (ngSubmit)="onSubmit()" #personajeForm="ngForm">
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="chara.nombre"
+        name="nombre"
+        required
+        minlength="4"
+        maxlength="10"
+        placeholder="Ingrese el nombre del personaje"
+        #nombre="ngModel"
+      />
+    </div>
+    <div class="form-group">
+      <label>Imagen:</label>
+      <input
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="form-control-file"
+        #imagenInput
+      />
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+</div>

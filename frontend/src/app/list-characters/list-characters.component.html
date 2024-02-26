@@ -1,0 +1,26 @@
+<h2 class="text-center">Lista de Personajes</h2>
+<div class="personajes-container">
+  <div class="personaje" *ngFor="let character of chara">
+    <div class="personaje-info">
+      <p>{{ character.nombre }}</p>
+      <img
+        [src]="getImagenUrl(character.imagenBase64)"
+        alt="Imagen de Personaje"
+      />
+    </div>
+    <div class="character-actions">
+      <button
+        (click)="updateCharacter(character.id_character)"
+        class="btn btn-info"
+      >
+        Editar
+      </button>
+      <button
+        (click)="deleteCharacter(character.id_character)"
+        class="btn btn-danger"
+      >
+        Eliminar
+      </button>
+    </div>
+  </div>
+</div>
