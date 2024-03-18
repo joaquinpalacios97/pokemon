@@ -1,9 +1,9 @@
 package com.api.poke.controller.requests;
 
+
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Getter
 public class CreatePokemonRequestDTO {
 //ESTE VALIDA LOS DATOS QUE SE INGRESAN
+
     @NotEmpty(message = "Name cannot be empty")
     String name;
     //min 0
@@ -32,4 +33,5 @@ public class CreatePokemonRequestDTO {
 
    /* @NotNull(message = "Image is required")
     MultipartFile image;*/
+
 }

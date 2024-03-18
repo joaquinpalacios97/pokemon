@@ -29,4 +29,6 @@ public class UpdatePokemonRequestDTO {
      /*@NotNull(message = "Image is required")
      byte[] image;*/
 
+
+
 }
