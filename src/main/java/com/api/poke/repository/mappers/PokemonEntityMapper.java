@@ -9,7 +9,7 @@ public class PokemonEntityMapper {
 
     public PokemonEntity toEntity(Pokemon pokemon) {
         PokemonEntity entity = new PokemonEntity();
-        entity.setId_pokemon(pokemon.getId_pokemon());
+        entity.setId(pokemon.getId_pokemon());
         entity.setName(pokemon.getName());
         entity.setExperience(pokemon.getExperience());
         entity.setEvolutionLevel(pokemon.getEvolutionLevel());
@@ -33,7 +33,7 @@ public class PokemonEntityMapper {
 
     public Pokemon toModel(PokemonEntity entity) {
         Pokemon pokemon = new Pokemon.Builder()
-                .id_pokemon(entity.getId_pokemon())
+                .id_pokemon(entity.getId())
                 .name(entity.getName())
                 .experience(entity.getExperience())
                 .evolutionLevel(entity.getEvolutionLevel())
