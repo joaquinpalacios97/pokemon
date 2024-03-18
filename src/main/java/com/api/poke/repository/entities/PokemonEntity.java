@@ -30,5 +30,7 @@ public class PokemonEntity {
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
+
+    private String imageBase64;
 }
 
