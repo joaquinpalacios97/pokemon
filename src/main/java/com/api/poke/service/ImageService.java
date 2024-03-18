@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import org.springframework.stereotype.Service;
 
@@ -9,3 +9,4 @@ public class ImageService {
         return Base64.getEncoder().encodeToString(imagen);
     }
 }
+*/

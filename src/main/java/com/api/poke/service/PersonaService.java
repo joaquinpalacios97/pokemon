@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import com.api.poke.model.Persona;
 import com.api.poke.repository.PersonaRepository;
@@ -35,3 +35,4 @@ public class PersonaService implements IPersonaService{
         return persoRepo.findByUsuario(usuario);
     }
 }
+*/

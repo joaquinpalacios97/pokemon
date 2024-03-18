@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import com.api.poke.model.Pokepersona;
 import com.api.poke.repository.PokepersonaRepository;
@@ -30,3 +30,4 @@ public class PokepersonaService implements  IPokepersonaService{
         return pokepersoRepo.findById(id).orElse(null);
     }
 }
+*/

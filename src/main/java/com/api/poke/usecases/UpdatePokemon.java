@@ -33,7 +33,7 @@ public class UpdatePokemon implements PokemonUpdater {
         pokemonEntity.setExperience(requestDTO.getExperience());
         pokemonEntity.setEvolutionLevel(requestDTO.getEvolutionLevel());
         pokemonEntity.setEvolves(requestDTO.isEvolves());
-        pokemonEntity.setImage(requestDTO.getImage());
+       // pokemonEntity.setImage(requestDTO.getImage());
 
         return pokemonEntityMapper.toModel(pokemonRepository.save(pokemonEntity));
     }

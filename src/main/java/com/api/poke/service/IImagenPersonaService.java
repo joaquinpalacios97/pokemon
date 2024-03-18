@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import com.api.poke.model.ImagenPersona;
 
@@ -11,3 +11,4 @@ public interface IImagenPersonaService {
     ImagenPersona searchImagenPerso (Long id);
 
 }
+*/

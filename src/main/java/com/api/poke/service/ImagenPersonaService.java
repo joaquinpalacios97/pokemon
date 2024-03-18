@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import com.api.poke.model.ImagenPersona;
 import com.api.poke.repository.ImagenPersoRepository;
@@ -41,4 +41,4 @@ public class ImagenPersonaService implements IImagenPersonaService{
     public ImagenPersona searchImagenPerso(Long id) {
         return imagenPersoRepo.findById(id).orElse(null);
     }
-}
+}*/

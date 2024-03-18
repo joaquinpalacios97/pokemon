@@ -1,4 +1,4 @@
-package com.api.poke.model;
+/*package com.api.poke.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,4 +28,4 @@ public class Persona {
         this.contrasena = contrasena;
         this.imagenPersona = imagenPersona;
     }
-}
+}*/

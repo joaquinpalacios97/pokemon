@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 public class PokemonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(name = "id_pokemon")
+    private Long id_pokemon;
 
     private String name;
 
@@ -27,10 +28,10 @@ public class PokemonEntity {
 
     private boolean evolves;
 
-    @Lob
+    /*@Lob
     @Column(columnDefinition = "LONGBLOB")
-    private byte[] image;
+    private byte[] image;*/
 
-    private String imageBase64;
+   // private String imageBase64;
 }
 

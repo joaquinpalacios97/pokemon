@@ -1,4 +1,4 @@
-package com.api.poke.controller;
+/*package com.api.poke.controller;
 
 import com.api.poke.model.Persona;
 import com.api.poke.service.PersonaService;
@@ -44,4 +44,4 @@ public class UserController {
         persoServi.deletePersona(id);
         return "se ha eliminado";
     }
-}
+}*/

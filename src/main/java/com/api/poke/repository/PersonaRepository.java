@@ -1,4 +1,4 @@
-package com.api.poke.repository;
+/*package com.api.poke.repository;
 
 import com.api.poke.model.Persona;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,3 +8,4 @@ import org.springframework.stereotype.Repository;
 public interface PersonaRepository extends JpaRepository<Persona, Long> {
     public Persona findByUsuario(String usuario);
 }
+*/

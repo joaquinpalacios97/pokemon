@@ -9,12 +9,12 @@ public class PokemonEntityMapper {
 
     public PokemonEntity toEntity(Pokemon pokemon) {
         PokemonEntity entity = new PokemonEntity();
-        entity.setId(pokemon.getId());
+        entity.setId_pokemon(pokemon.getId_pokemon());
         entity.setName(pokemon.getName());
         entity.setExperience(pokemon.getExperience());
         entity.setEvolutionLevel(pokemon.getEvolutionLevel());
         entity.setEvolves(pokemon.isEvolves());
-        entity.setImage(pokemon.getImage());
+        //entity.setImage(pokemon.getImage());
         return entity;
     }
 
@@ -33,11 +33,12 @@ public class PokemonEntityMapper {
 
     public Pokemon toModel(PokemonEntity entity) {
         Pokemon pokemon = new Pokemon.Builder()
+                .id_pokemon(entity.getId_pokemon())
                 .name(entity.getName())
                 .experience(entity.getExperience())
                 .evolutionLevel(entity.getEvolutionLevel())
                 .evolves(entity.isEvolves())
-                .image(entity.getImage())
+              //  .image(entity.getImage())
                 .build(); // Aquí se construye la instancia de Pokemon
         return pokemon;
     }

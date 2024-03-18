@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import com.api.poke.model.Pokepersona;
 
@@ -10,3 +10,4 @@ public interface IPokepersonaService {
     public void deletePokeperso(Long id);
     public Pokepersona findPokeperso(Long id);
 }
+*/

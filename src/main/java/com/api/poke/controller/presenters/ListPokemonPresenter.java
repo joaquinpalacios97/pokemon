@@ -11,16 +11,16 @@ public class ListPokemonPresenter {
     public ListPokemonResponseDTO toResponse(Pokemon pokemon){
         return ListPokemonResponseDTO
                 .builder()
-                .id(pokemon.getId())
+                .id(pokemon.getId_pokemon())
                 .name(pokemon.getName())
                 .experience(pokemon.getExperience())
                 .evolutionLevel(pokemon.getEvolutionLevel())
                 .evolves(pokemon.isEvolves())
-                .image(pokemon.getImage())
-                .imageBase64(convertirImagenABase64(pokemon.getImage()))
+          //      .image(pokemon.getImage())
+          //      .imageBase64(convertirImagenABase64(pokemon.getImage()))
                 .build();
     }
-    private String convertirImagenABase64(byte[] imagen) {
+    /*private String convertirImagenABase64(byte[] imagen) {
         return Base64.getEncoder().encodeToString(imagen);
-    }
+    }*/
 }

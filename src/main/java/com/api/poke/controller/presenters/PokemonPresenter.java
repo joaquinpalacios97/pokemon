@@ -10,7 +10,7 @@ public class PokemonPresenter {
     public PokemonResponseDTO toResponse(Pokemon pokemon) {
         return PokemonResponseDTO
                 .builder()
-                .id(String.valueOf(pokemon.getId()))
+                .id(String.valueOf(pokemon.getId_pokemon()))
                 .name(pokemon.getName())
                 .build();
     }

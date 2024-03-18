@@ -1,4 +1,4 @@
-package com.api.poke.service;
+/*package com.api.poke.service;
 
 import com.api.poke.model.Persona;
 
@@ -12,3 +12,4 @@ public interface IPersonaService {
     public Persona findByUsuario(String usuario);
 
 }
+*/

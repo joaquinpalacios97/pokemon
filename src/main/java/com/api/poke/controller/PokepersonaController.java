@@ -1,4 +1,4 @@
-package com.api.poke.controller;
+/*package com.api.poke.controller;
 
 import com.api.poke.model.Pokepersona;
 import com.api.poke.service.PokepersonaService;
@@ -34,3 +34,4 @@ public class PokepersonaController {
         return "se ha eliminado";
     }
 }
+*/

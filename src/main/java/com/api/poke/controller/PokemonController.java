@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@RestController("/pokemons")
+@RestController
+        @RequestMapping("/pokemons")
 @CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class PokemonController {

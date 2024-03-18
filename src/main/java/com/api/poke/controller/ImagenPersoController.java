@@ -1,4 +1,4 @@
-package com.api.poke.controller;
+/*package com.api.poke.controller;
 
 import com.api.poke.model.ImagenPersona;
 import com.api.poke.service.ImagenPersonaService;
@@ -97,4 +97,4 @@ public class ImagenPersoController {
             return ResponseEntity.ok().body(response);
         }
 
-}
+}*/

@@ -15,6 +15,6 @@ public class ListPokemonResponseDTO {
     private int experience;
     private int evolutionLevel;
     private boolean evolves;
-    private byte[] image;
-    private String imageBase64;
+  //  private byte[] image;
+  //  private String imageBase64;
 }
