@@ -7,28 +7,17 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Data
 @Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PokemonEntity {
+public class GymEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
 
-    private String name;
+    String name;
 
-    private int experience;
-
-    private int evolutionLevel;
-
-    private boolean evolves;
-
-    /*@Lob
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] image;*/
-
-   // private String imageBase64;
+    String type;
 }
-

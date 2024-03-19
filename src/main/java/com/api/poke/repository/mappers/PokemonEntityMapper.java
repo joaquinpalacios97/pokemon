@@ -9,7 +9,7 @@ public class PokemonEntityMapper {
 
     public PokemonEntity toEntity(Pokemon pokemon) {
         PokemonEntity entity = new PokemonEntity();
-        entity.setId(pokemon.getId_pokemon());
+        entity.setId(pokemon.getId());
         entity.setName(pokemon.getName());
         entity.setExperience(pokemon.getExperience());
         entity.setEvolutionLevel(pokemon.getEvolutionLevel());

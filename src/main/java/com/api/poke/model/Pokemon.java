@@ -2,11 +2,14 @@ package com.api.poke.model;
 
 import lombok.Data;
 import lombok.Getter;
+
+import java.util.UUID;
+
 //ESTE YA ES EL TRANSFORMADO
 @Data
 @Getter
 public class Pokemon {
-    private Long id_pokemon;
+    private UUID id;
     private String name;
     private int experience;
     private int evolutionLevel;
@@ -19,7 +22,7 @@ public class Pokemon {
     }
 
     public Pokemon(Builder builder) {
-        this.id_pokemon = builder.id_pokemon;
+        this.id = builder.id;
         this.name = builder.name;
         this.experience = builder.experience;
         this.evolutionLevel = builder.evolutionLevel;
@@ -28,7 +31,7 @@ public class Pokemon {
        // this.imageBase64 = builder.imageBase64;
     }
     public static class Builder {
-        private Long id_pokemon;
+        private UUID id;
         private String name;
         private int experience;
         private int evolutionLevel;
@@ -37,8 +40,8 @@ public class Pokemon {
         //private byte[] image;
         //private String imageBase64;
 
-  public Builder id_pokemon(Long id_pokemon){
-      this.id_pokemon = id_pokemon;
+  public Builder id_pokemon(UUID id_pokemon){
+      this.id = id_pokemon;
       return this;
   }
 

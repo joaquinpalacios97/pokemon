@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @RestController
-        @RequestMapping("/pokemons")
+@RequestMapping("/pokemons")
 @CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class PokemonController {
@@ -71,7 +71,6 @@ public class PokemonController {
         Pokemon updatedPokemon = pokemonUpdater.execute(id, updateRequestDTO);
         // Convierte el Pokémon actualizado en una respuesta para el cliente
         PokemonResponseDTO responseDTO = presenter.toResponse(updatedPokemon);
-        // Devuelve la respuesta con el estado HTTP correspondiente
         return responseDTO;
     }
 

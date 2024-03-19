@@ -11,7 +11,7 @@ public class ListPokemonPresenter {
     public ListPokemonResponseDTO toResponse(Pokemon pokemon){
         return ListPokemonResponseDTO
                 .builder()
-                .id(pokemon.getId_pokemon())
+                .id(pokemon.getId())
                 .name(pokemon.getName())
                 .experience(pokemon.getExperience())
                 .evolutionLevel(pokemon.getEvolutionLevel())
