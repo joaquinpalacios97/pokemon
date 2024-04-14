@@ -129,15 +129,31 @@ public class TrainerServiceTest {
     @Test
     public void testListTrainers_ReturnsListOfTrainers() {
         // Arrange
-        List<TrainerEntity> trainerEntities = Arrays.asList(new TrainerEntity(), new TrainerEntity());
-        when(trainerRepository.findAll()).thenReturn(trainerEntities);
+        UUID id1 = UUID.randomUUID();
+        UUID id2 = UUID.randomUUID();
 
-        List<Trainer> expectedTrainers = trainerEntities
-                .stream()
-                .map(trainerEntityMapper::toModel)
-                .collect(Collectors.toList());
 
+        TrainerEntity trainerEntity1 = new TrainerEntity();
+        trainerEntity1.setId(id1);
+        TrainerEntity trainerEntity2 = new TrainerEntity();
+        trainerEntity2.setId(id2);
+
+        // Simular la respuesta del repositorio con las entidades creadas
+        List<TrainerEntity> trainerEntitiesList = Arrays.asList(trainerEntity1, trainerEntity2);
+
+
+        // Convertir las entidades de entrenador a modelos de entrenador
+        Trainer trainer1 = new Trainer();
+        trainer1.setId(id1);
+        Trainer trainer2 = new Trainer();
+        trainer2.setId(id2);
+        List<Trainer> expectedTrainers = Arrays.asList(trainer1, trainer2);
+
+        when(trainerRepository.findAll()).thenReturn(trainerEntitiesList);
+        when(trainerEntityMapper.toModel(trainerEntity1)).thenReturn(trainer1);
+        when(trainerEntityMapper.toModel(trainerEntity2)).thenReturn(trainer2);
         // Act
+
         List<Trainer> actualTrainers = trainerService.findAll();
 
         // Assert
