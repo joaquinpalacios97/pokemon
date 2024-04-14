@@ -7,12 +7,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class DeleteGym implements GymDeleter{
 
     GymRepository gymRepository;
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         Optional<GymEntity> gymEntity = gymRepository.findById(id);
         if(gymEntity.isEmpty()){
             throw new GymNotFoundException("Gym not found for id " + id);

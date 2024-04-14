@@ -1,0 +1,203 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > TrainerServiceTest</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.api.poke.test.service</a>
+</div>
+
+<h1>Coverage Summary for Class: TrainerServiceTest (com.api.poke.test.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TrainerServiceTest</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88%
+  </span>
+  <span class="absValue">
+    (22/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.api.poke.test.service;
+&nbsp;
+&nbsp;import com.api.poke.controller.requests.CreateTrainerRequestDTO;
+&nbsp;import com.api.poke.exceptions.TrainerNotFoundException;
+&nbsp;import com.api.poke.model.Trainer;
+&nbsp;import com.api.poke.repository.TrainerRepository;
+&nbsp;import com.api.poke.repository.entities.TrainerEntity;
+&nbsp;import com.api.poke.repository.mappers.TrainerEntityMapper;
+&nbsp;import com.api.poke.usecases.GymFinder;
+&nbsp;import com.api.poke.service.TrainerService;
+&nbsp;import org.junit.jupiter.api.BeforeEach;
+&nbsp;import org.junit.jupiter.api.Test;
+&nbsp;import org.mockito.InjectMocks;
+&nbsp;import org.mockito.Mock;
+&nbsp;import org.mockito.MockitoAnnotations;
+&nbsp;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.UUID;
+&nbsp;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertEquals;
+&nbsp;import static org.junit.jupiter.api.Assertions.assertThrows;
+&nbsp;import static org.mockito.Mockito.*;
+&nbsp;
+<b class="fc">&nbsp;public class TrainerServiceTest {</b>
+&nbsp;
+&nbsp;    // Mocks necesarios para las pruebas
+&nbsp;    @Mock
+&nbsp;    private TrainerRepository trainerRepository;
+&nbsp;
+&nbsp;    @Mock
+&nbsp;    private TrainerEntityMapper trainerEntityMapper;
+&nbsp;
+&nbsp;
+&nbsp;    // Objeto a ser probado, en el cual se inyectan los mocks
+&nbsp;    @InjectMocks
+&nbsp;    private TrainerService trainerService;
+&nbsp;
+&nbsp;    // Configuración antes de cada prueba
+&nbsp;    @BeforeEach
+&nbsp;    public void setUp() {
+<b class="fc">&nbsp;        MockitoAnnotations.openMocks(this);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Prueba para verificar que findById() devuelve un Trainer existente
+&nbsp;    @Test
+&nbsp;    public void testFindById_ExistingId_ReturnsTrainer() {
+<b class="fc">&nbsp;        UUID id = UUID.randomUUID();</b>
+<b class="fc">&nbsp;        TrainerEntity trainerEntity = new TrainerEntity();</b>
+<b class="fc">&nbsp;        trainerEntity.setId(id);</b>
+<b class="fc">&nbsp;        Trainer trainer = new Trainer();</b>
+<b class="fc">&nbsp;        trainer.setId(id);</b>
+&nbsp;
+&nbsp;        // Configuración de comportamiento del mock
+<b class="fc">&nbsp;        when(trainerRepository.findById(id)).thenReturn(Optional.of(trainerEntity));</b>
+<b class="fc">&nbsp;        when(trainerEntityMapper.toModel(trainerEntity)).thenReturn(trainer);</b>
+&nbsp;
+&nbsp;        // Llamada al método a probar
+<b class="fc">&nbsp;        Trainer result = trainerService.findById(id);</b>
+&nbsp;
+&nbsp;        // Verificación de resultados
+<b class="fc">&nbsp;        assertEquals(trainer, result);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Prueba para verificar que findById() lanza una excepción cuando el ID no existe
+&nbsp;    @Test
+&nbsp;    public void testFindById_NonExistingId_ThrowsException() {
+<b class="fc">&nbsp;        UUID id = UUID.randomUUID();</b>
+&nbsp;
+&nbsp;        // Configuración de comportamiento del mock
+<b class="fc">&nbsp;        when(trainerRepository.findById(id)).thenReturn(Optional.empty());</b>
+&nbsp;
+&nbsp;        // Verificación de que se lanza una excepción
+<b class="fc">&nbsp;        assertThrows(TrainerNotFoundException.class, () -&gt; trainerService.findById(id));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Otras pruebas pueden ser añadidas aquí...
+&nbsp;    @Test
+&nbsp;    public void testSaveTrainer_Success() {
+&nbsp;        // Arrange
+<b class="fc">&nbsp;        CreateTrainerRequestDTO requestDTO = new CreateTrainerRequestDTO();</b>
+&nbsp;//        requestDTO.setName(&quot;Ash&quot;);
+&nbsp;
+<b class="fc">&nbsp;        Trainer trainer = Trainer.builder().name(&quot;Ash&quot;).build();</b>
+<b class="fc">&nbsp;        TrainerEntity trainerEntity = TrainerEntity.builder().id(UUID.randomUUID()).name(&quot;Ash&quot;).build();</b>
+&nbsp;
+<b class="fc">&nbsp;        when(trainerEntityMapper.toEntity(trainer)).thenReturn(trainerEntity);</b>
+<b class="fc">&nbsp;        when(trainerRepository.save(trainerEntity)).thenReturn(trainerEntity);</b>
+<b class="fc">&nbsp;        when(trainerEntityMapper.toModel(trainerEntity)).thenReturn(trainer);</b>
+&nbsp;
+&nbsp;        // Act
+<b class="fc">&nbsp;        Trainer savedTrainer = trainerService.saveTrainer(requestDTO);</b>
+&nbsp;
+&nbsp;        // Assert
+<b class="fc">&nbsp;        assertEquals(&quot;Ash&quot;, savedTrainer.getName());</b>
+<b class="nc">&nbsp;        verify(trainerEntityMapper).toEntity(trainer);</b>
+<b class="nc">&nbsp;        verify(trainerRepository).save(trainerEntity);</b>
+<b class="nc">&nbsp;        verify(trainerEntityMapper).toModel(trainerEntity);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-07 11:40</div>
+</div>
+</body>
+</html>

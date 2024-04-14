@@ -18,18 +18,6 @@ public class PokemonEntityMapper {
         return entity;
     }
 
-  /*  public Pokemon toModel(PokemonEntity entity) {
-        Pokemon pokemon = new Pokemon();
-        pokemon.setId(entity.getId());
-        pokemon.setName(entity.getName());
-        pokemon.setExperience(entity.getExperience());
-        pokemon.setEvolutionLevel(entity.getEvolutionLevel());
-        pokemon.setEvolves(entity.isEvolves());
-        pokemon.setImage(entity.getImage());
-        return pokemon;
-    }*/
-
-
 
     public Pokemon toModel(PokemonEntity entity) {
         Pokemon pokemon = new Pokemon.Builder()

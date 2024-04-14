@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class UpdateGym implements GymUpdater {
 
     GymRepository gymRepository;
     GymEntityMapper gymEntityMapper;
-    public Gym execute(Long id, UpdateGymRequestDTO requestDTO) {
+    public Gym execute(UUID id, UpdateGymRequestDTO requestDTO) {
         Optional<GymEntity> gymEntity = gymRepository.findById(id);
         if (gymEntity.isEmpty()){
             throw new GymNotFoundException("Gym not foun for id " + id);

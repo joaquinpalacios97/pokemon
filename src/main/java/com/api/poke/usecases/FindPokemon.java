@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -18,7 +19,7 @@ public class FindPokemon implements PokemonFinder {
     private final PokemonEntityMapper mapper;
 
     @Override
-    public Pokemon findById(Long id) {
+    public Pokemon findById(UUID id) {
         Optional<PokemonEntity> pokemonEntity = pokemonRepository.findById(id);
 
         if (pokemonEntity.isEmpty()) {

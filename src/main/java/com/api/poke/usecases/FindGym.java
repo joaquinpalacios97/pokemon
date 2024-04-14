@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 
@@ -16,7 +18,8 @@ public class FindGym implements GymFinder{
 
     GymRepository gymRepository;
     GymEntityMapper gymEntityMapper;
-    public Gym findById(Long id) {
+
+    public Gym findById(UUID id) {
         Optional<GymEntity> gymEntity = gymRepository.findById(id);
         if(gymEntity.isEmpty()){
             throw new GymNotFoundException("Gym not found for id " + id);

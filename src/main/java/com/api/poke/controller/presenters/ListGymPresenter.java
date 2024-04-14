@@ -11,6 +11,7 @@ public class ListGymPresenter {
                 .builder()
                 .name(gym.getName())
                 .type(gym.getType())
+                .trainers(gym.getTrainers())
                 .build();
     }
 }

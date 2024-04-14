@@ -38,7 +38,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage("Invalid request content.");
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             ApiErrorDetail apiErrorDetail = new ApiErrorDetail();
-            apiErrorDetail.setValue(Objects.requireNonNull(error.getRejectedValue()).toString());
+            apiErrorDetail.setValue(error.getRejectedValue() != null ? error.getRejectedValue().toString() : null);
             apiErrorDetail.setField(error.getField());
             apiErrorDetail.setMessage(error.getDefaultMessage());
             apiError.getDetails().add(apiErrorDetail);

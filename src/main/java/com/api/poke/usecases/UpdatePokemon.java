@@ -12,6 +12,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -21,7 +22,7 @@ public class UpdatePokemon implements PokemonUpdater {
     PokemonRepository pokemonRepository;
     PokemonEntityMapper pokemonEntityMapper;
 
-    public Pokemon execute(Long id, UpdatePokemonRequestDTO requestDTO) {
+    public Pokemon execute(UUID id, UpdatePokemonRequestDTO requestDTO) {
         Optional<PokemonEntity> pokemonToUpdate = pokemonRepository.findById(id);
 
         if (pokemonToUpdate.isEmpty()) {

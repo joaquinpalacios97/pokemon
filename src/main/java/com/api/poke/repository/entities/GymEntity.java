@@ -1,10 +1,15 @@
 package com.api.poke.repository.entities;
 
+import com.api.poke.model.PokemonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,12 +17,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GymEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
     String name;
 
-    String type;
+    PokemonType type;
+
+    @OneToMany
+    private List<TrainerEntity> trainers = new ArrayList<>();
 }

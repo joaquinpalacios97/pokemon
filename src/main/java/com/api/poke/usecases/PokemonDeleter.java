@@ -1,5 +1,7 @@
 package com.api.poke.usecases;
 
+import java.util.UUID;
+
 public interface PokemonDeleter {
-    void deleteById(Long id);
+    void deleteById(UUID id);
 }

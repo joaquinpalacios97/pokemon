@@ -43,7 +43,7 @@ public class PokemonController {
     }
 
     @GetMapping("/{id}")
-    public PokemonResponseDTO findPokemon(@PathVariable Long id) {
+    public PokemonResponseDTO findPokemon(@PathVariable UUID id) {
         Pokemon pokemon = pokemonFinder.findById(id);
 
         return presenter.toResponse(pokemon);
@@ -65,7 +65,7 @@ public class PokemonController {
 
     @PutMapping("/{id}")
     public PokemonResponseDTO updatePokemon(
-            @PathVariable Long id,
+            @PathVariable UUID id,
             @RequestBody @Validated UpdatePokemonRequestDTO updateRequestDTO) {
         // Ejecuta la actualización del Pokémon
         Pokemon updatedPokemon = pokemonUpdater.execute(id, updateRequestDTO);
@@ -75,7 +75,7 @@ public class PokemonController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deletePokemon(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePokemon(@PathVariable UUID id) {
         pokemonDeleter.deleteById(id);
 
         return ResponseEntity.noContent().build();

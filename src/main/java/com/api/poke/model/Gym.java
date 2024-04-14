@@ -1,13 +1,15 @@
 package com.api.poke.model;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
 
+import lombok.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class Gym {
 
@@ -15,6 +17,7 @@ public class Gym {
 
     String name;
 
-    String type;
+    PokemonType type;
 
+    private List<Trainer> trainers;
 }

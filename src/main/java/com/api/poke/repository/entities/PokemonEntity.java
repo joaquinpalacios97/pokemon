@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.Type;
+import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
@@ -12,10 +15,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PokemonEntity {
+    @Column(columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "BINARY(16)")
-    private UUID id;
+    private  UUID id;
 
     private String name;
 
@@ -31,4 +35,3 @@ public class PokemonEntity {
 
    // private String imageBase64;
 }
-

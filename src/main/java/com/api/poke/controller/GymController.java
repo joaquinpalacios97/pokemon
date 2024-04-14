@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @RequestMapping("/gym")
@@ -30,6 +31,7 @@ public class GymController {
     private final GymCreator gymCreator;
     private final GymDeleter gymDeleter;
     private final GymUpdater gymUpdater;
+
     @GetMapping("")
     public List<ListGymResponseDTO> getAll(){
         List<Gym> gyms = gymLister.execute();
@@ -42,7 +44,7 @@ public class GymController {
     }
 
     @GetMapping("/{id}")
-    public GymResponseDTO findGym(@PathVariable Long id){
+    public GymResponseDTO findGym(@PathVariable UUID id){
         Gym gym = gymFinder.findById(id);
         return gymPresenter.toResponse(gym);
     }
@@ -57,7 +59,7 @@ public class GymController {
 
     @PutMapping("/{id}")
     public GymResponseDTO updateGym(
-            @PathVariable Long id, @RequestBody @Validated UpdateGymRequestDTO updateGymRequestDTO)
+            @PathVariable UUID id, @RequestBody @Validated UpdateGymRequestDTO updateGymRequestDTO)
     {
     Gym updateGym = gymUpdater.execute(id, updateGymRequestDTO);
     GymResponseDTO gymResponseDTO = gymPresenter.toResponse(updateGym);
@@ -65,7 +67,7 @@ public class GymController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGym(@PathVariable Long id){
+    public ResponseEntity<Void> deleteGym(@PathVariable UUID id){
         gymDeleter.deleteById(id);
         return ResponseEntity.noContent().build();
     }
