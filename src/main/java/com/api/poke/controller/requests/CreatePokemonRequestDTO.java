@@ -1,6 +1,7 @@
 package com.api.poke.controller.requests;
 
 
+import com.api.poke.controller.validators.ValidEvolutionLevelConstraint;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -14,19 +15,18 @@ import org.springframework.web.multipart.MultipartFile;
 @Builder
 @FieldDefaults(makeFinal = true)
 @Getter
+@ValidEvolutionLevelConstraint
 public class CreatePokemonRequestDTO {
-//ESTE VALIDA LOS DATOS QUE SE INGRESAN
+
+    // TODO : evolutionLevel (si evolves = false , evolutionLevel = null)
 
     @NotEmpty(message = "Name cannot be empty")
     String name;
-    //min 0
-    //no nullable
+
     @NotNull(message = "Experience cannot be null")
+    @Min(value = 0)
     Integer experience;
-    //nullable
-    //min 1
-    @NotNull(message = "Evolution level cannot be null")
-    @Min(value = 0, message = "Evolution level must be at least 0")
+
     Integer evolutionLevel;
 
     Boolean evolves;

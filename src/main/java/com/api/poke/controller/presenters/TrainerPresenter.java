@@ -10,6 +10,7 @@ public class TrainerPresenter {
         return TrainerResponseDTO
                 .builder()
                 .name(trainer.getName())
+                .pokemons(trainer.getPokemons())
                 .build();
     }
 }

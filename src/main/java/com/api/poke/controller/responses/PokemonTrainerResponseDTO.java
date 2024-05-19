@@ -1,18 +1,16 @@
 package com.api.poke.controller.responses;
 
-
 import com.api.poke.model.Pokemon;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.UUID;
 
 @Builder
-@Getter
 @FieldDefaults(makeFinal = true)
-public class TrainerResponseDTO {
-    String name;
-    List<Pokemon> pokemons;
-
+@Getter
+public class PokemonTrainerResponseDTO {
+    private List<Pokemon> pokemonIds;
 }

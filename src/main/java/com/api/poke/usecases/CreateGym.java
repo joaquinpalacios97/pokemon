@@ -24,22 +24,23 @@ public class CreateGym implements GymCreator{
     TrainerEntityMapper trainerEntityMapper;
 
     public Gym execute(CreateGymRequestDTO requestDTO) {
-        // Convertir los entrenadores del DTO a entidades
+
         List<TrainerEntity> trainerEntities = requestDTO.getTrainers()
                 .stream()
                 .map(trainerEntityMapper::toEntity)
                 .collect(Collectors.toList());
 
-        // Crear una instancia de GymEntity
-        GymEntity gymEntity = new GymEntity();
-        gymEntity.setName(requestDTO.getName());
-        gymEntity.setType(requestDTO.getType());
-        gymEntity.setTrainers(trainerEntities); // Asignar los entrenadores al gimnasio
 
-        // Guardar el gimnasio en la base de datos
+        GymEntity gymEntity = GymEntity.builder()
+                .name(requestDTO.getName())
+                .type(requestDTO.getType())
+                .trainers(trainerEntities)
+                .build();
+
+
         gymEntity = gymRepository.save(gymEntity);
 
-        // Convertir GymEntity a Gym y devolverlo
+
         return gymEntityMapper.toModel(gymEntity);
 
     }

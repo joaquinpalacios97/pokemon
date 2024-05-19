@@ -1,5 +1,6 @@
 package com.api.poke.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
@@ -8,11 +9,12 @@ import java.util.UUID;
 //ESTE YA ES EL TRANSFORMADO
 @Data
 @Getter
+@Builder
 public class Pokemon {
     private UUID id;
     private String name;
     private int experience;
-    private int evolutionLevel;
+    private Integer evolutionLevel;
     private boolean evolves;
    // private byte[] image;
     //private String imageBase64;
@@ -21,7 +23,7 @@ public class Pokemon {
 
     }
 
-    public Pokemon(Builder builder) {
+ /*   public Pokemon(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
         this.experience = builder.experience;
@@ -73,12 +75,12 @@ public class Pokemon {
         this.imageBase64 = imageBase64;
         return this;
     }*/
-
+/*
     public Pokemon build() {
         return new Pokemon(this);
     }
 
-}
+}*/
 
 }
 

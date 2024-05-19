@@ -2,6 +2,7 @@ package com.api.poke.model;
 
 import lombok.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -15,4 +16,5 @@ public class Trainer {
 
     String name;
 
+    private List<Pokemon> pokemons;
 }

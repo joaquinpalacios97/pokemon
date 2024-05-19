@@ -1,4 +1,4 @@
-package com.api.poke.test.service;
+package com.api.poke.usecases;
 
 import com.api.poke.model.Gym;
 import com.api.poke.repository.GymRepository;
@@ -7,9 +7,11 @@ import com.api.poke.repository.mappers.GymEntityMapper;
 import com.api.poke.usecases.ListGym;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 public class ListGymTest {
     @Mock
     private GymRepository gymRepository;
@@ -27,11 +29,6 @@ public class ListGymTest {
 
     @InjectMocks
     private ListGym listGym;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testExecute_ReturnsListOfGyms() {

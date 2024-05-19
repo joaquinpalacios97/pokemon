@@ -3,8 +3,9 @@ package com.api.poke.controller;
 import com.api.poke.controller.presenters.ListTrainerPresenter;
 import com.api.poke.controller.presenters.TrainerPresenter;
 import com.api.poke.controller.requests.CreateTrainerRequestDTO;
+import com.api.poke.controller.requests.CreateTrainerPokemonsRequest;
+import com.api.poke.controller.requests.UpdatePokemonTrainerRequest;
 import com.api.poke.controller.requests.UpdateTrainerRequestDTO;
-import com.api.poke.controller.responses.GymResponseDTO;
 import com.api.poke.controller.responses.ListTrainerResponseDTO;
 import com.api.poke.controller.responses.TrainerResponseDTO;
 import com.api.poke.model.Trainer;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/trainer")
+@RequestMapping("/trainers")
 @CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class TrainerController {
@@ -61,8 +62,27 @@ public class TrainerController {
             @PathVariable UUID id, @RequestBody @Validated UpdateTrainerRequestDTO updateTrainerRequestDTO
     ) {
         Trainer updateTrainer = iTrainerService.updateTrainer(id, updateTrainerRequestDTO);
-        TrainerResponseDTO responseDTO = trainerPresenter.toResponse(updateTrainer);
-        return responseDTO;
+        return trainerPresenter.toResponse(updateTrainer);
+    }
+
+    @PutMapping("/{id}/pokemons")
+    public ResponseEntity<TrainerResponseDTO> updatePokemonList(
+            @PathVariable UUID id,
+            @RequestBody @Validated CreateTrainerPokemonsRequest updatePokemonListRequestDTO
+    ) {
+        Trainer updatedTrainer = iTrainerService.updateTrainerPokemons(id, updatePokemonListRequestDTO);
+        TrainerResponseDTO trainerResponseDTO = trainerPresenter.toResponse(updatedTrainer);
+        return ResponseEntity.ok(trainerResponseDTO);
+    }
+
+    @PutMapping("/{id}/pokemons/update")
+    public ResponseEntity<TrainerResponseDTO> updateTrainerPokemon(
+            @PathVariable UUID id,
+            @RequestBody @Validated UpdatePokemonTrainerRequest requestDTO
+    ) {
+        Trainer updatedTrainer = iTrainerService.updateTrainerPokemon(id, requestDTO);
+        TrainerResponseDTO trainerResponseDTO = trainerPresenter.toResponse(updatedTrainer);
+        return ResponseEntity.ok(trainerResponseDTO);
     }
 
     @DeleteMapping("/{id}")

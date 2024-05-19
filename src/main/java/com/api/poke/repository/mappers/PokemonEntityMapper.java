@@ -4,6 +4,7 @@ import com.api.poke.model.Pokemon;
 import com.api.poke.repository.entities.PokemonEntity;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class PokemonEntityMapper {
 
@@ -20,8 +21,8 @@ public class PokemonEntityMapper {
 
 
     public Pokemon toModel(PokemonEntity entity) {
-        Pokemon pokemon = new Pokemon.Builder()
-                .id_pokemon(entity.getId())
+        Pokemon pokemon =  Pokemon.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .experience(entity.getExperience())
                 .evolutionLevel(entity.getEvolutionLevel())

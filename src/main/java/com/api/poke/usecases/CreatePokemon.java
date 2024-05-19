@@ -19,7 +19,7 @@ public class CreatePokemon implements PokemonCreator{
     PokemonEntityMapper pokemonEntityMapper;
 
     public Pokemon execute(CreatePokemonRequestDTO requestDTO) {
-        Pokemon pokemon = new Pokemon.Builder()
+        Pokemon pokemon =  Pokemon.builder()
                 .name(requestDTO.getName())
                 .experience(requestDTO.getExperience())
                 .evolutionLevel(requestDTO.getEvolutionLevel())

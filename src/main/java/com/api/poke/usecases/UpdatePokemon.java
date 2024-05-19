@@ -28,12 +28,14 @@ public class UpdatePokemon implements PokemonUpdater {
         if (pokemonToUpdate.isEmpty()) {
             throw new PokemonNotFoundException("Pokemon not found for id " + id);
         }
+//TODO: VER QUE ONDA
+        PokemonEntity pokemonEntity = pokemonToUpdate.get().builder()
+                .name(requestDTO.getName())
+                .experience(requestDTO.getExperience())
+                .evolutionLevel(requestDTO.getEvolutionLevel())
+                .evolves(requestDTO.isEvolves())
+                .build();
 
-        PokemonEntity pokemonEntity = pokemonToUpdate.get();
-        pokemonEntity.setName(requestDTO.getName());
-        pokemonEntity.setExperience(requestDTO.getExperience());
-        pokemonEntity.setEvolutionLevel(requestDTO.getEvolutionLevel());
-        pokemonEntity.setEvolves(requestDTO.isEvolves());
        // pokemonEntity.setImage(requestDTO.getImage());
 
         return pokemonEntityMapper.toModel(pokemonRepository.save(pokemonEntity));

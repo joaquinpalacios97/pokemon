@@ -33,25 +33,24 @@ public class GymController {
     private final GymUpdater gymUpdater;
 
     @GetMapping("")
-    public List<ListGymResponseDTO> getAll(){
+    public List<ListGymResponseDTO> getAll() {
         List<Gym> gyms = gymLister.execute();
         List<ListGymResponseDTO> listDto = new ArrayList<>();
-        for (Gym gym : gyms){
-            ListGymResponseDTO responseDTO =  listGymPresenter.toResponse(gym);
-        listDto.add(responseDTO);
+        for (Gym gym : gyms) {
+            ListGymResponseDTO responseDTO = listGymPresenter.toResponse(gym);
+            listDto.add(responseDTO);
         }
         return listDto;
     }
 
     @GetMapping("/{id}")
-    public GymResponseDTO findGym(@PathVariable UUID id){
-        Gym gym = gymFinder.findById(id);
-        return gymPresenter.toResponse(gym);
+    public GymResponseDTO findGym(@PathVariable UUID id) {
+        return gymPresenter.toResponse(gymFinder.findById(id));
     }
 
     @PostMapping("")
     public ResponseEntity<GymResponseDTO> create(
-        @RequestBody @Validated CreateGymRequestDTO createGymRequestDTO){
+            @RequestBody @Validated CreateGymRequestDTO createGymRequestDTO) {
         Gym createdGym = gymCreator.execute(createGymRequestDTO);
         GymResponseDTO gymResponseDTO = gymPresenter.toResponse(createdGym);
         return ResponseEntity.status(HttpStatus.CREATED).body(gymResponseDTO);
@@ -59,18 +58,13 @@ public class GymController {
 
     @PutMapping("/{id}")
     public GymResponseDTO updateGym(
-            @PathVariable UUID id, @RequestBody @Validated UpdateGymRequestDTO updateGymRequestDTO)
-    {
-    Gym updateGym = gymUpdater.execute(id, updateGymRequestDTO);
-    GymResponseDTO gymResponseDTO = gymPresenter.toResponse(updateGym);
-    return  gymResponseDTO;
+            @PathVariable UUID id, @RequestBody @Validated UpdateGymRequestDTO updateGymRequestDTO) {
+        return gymPresenter.toResponse(gymUpdater.execute(id, updateGymRequestDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGym(@PathVariable UUID id){
+    public ResponseEntity<Void> deleteGym(@PathVariable UUID id) {
         gymDeleter.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

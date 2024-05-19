@@ -1,4 +1,4 @@
-package com.api.poke.test.service;
+package com.api.poke.usecases;
 
 import com.api.poke.model.Pokemon;
 import com.api.poke.repository.PokemonRepository;
@@ -7,9 +7,11 @@ import com.api.poke.repository.mappers.PokemonEntityMapper;
 import com.api.poke.usecases.ListPokemon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 public class ListPokemonTest {
 
     @Mock
@@ -28,11 +30,6 @@ public class ListPokemonTest {
 
     @InjectMocks
     private ListPokemon listPokemon;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testExecute_ReturnsListOfPokemons() {
@@ -45,12 +42,12 @@ public class ListPokemonTest {
         pokemonEntity2.setId(id2);
         List<PokemonEntity> pokemonEntityList = Arrays.asList(pokemonEntity1, pokemonEntity2);
 
-        Pokemon pokemon1 = new Pokemon.Builder()
-                .id_pokemon(id)
+        Pokemon pokemon1 =  Pokemon.builder()
+                .id(id)
                 .build();
-        Pokemon pokemon2 = new Pokemon.Builder()
-                .id_pokemon(id2)
-                        .build();
+        Pokemon pokemon2 =  Pokemon.builder()
+                .id(id2)
+                .build();
         List<Pokemon> expectedPokemonList = Arrays.asList(pokemon1, pokemon2);
 
         when(repository.findAll()).thenReturn(pokemonEntityList);

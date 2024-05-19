@@ -1,4 +1,4 @@
-package com.api.poke.test.service;
+package com.api.poke.usecases;
 
 import com.api.poke.controller.requests.UpdatePokemonRequestDTO;
 import com.api.poke.exceptions.PokemonNotFoundException;
@@ -9,9 +9,11 @@ import com.api.poke.repository.mappers.PokemonEntityMapper;
 import com.api.poke.usecases.UpdatePokemon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -19,7 +21,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 public class UpdatePokemonTest {
     @Mock
     private PokemonRepository pokemonRepository;
@@ -29,11 +31,6 @@ public class UpdatePokemonTest {
 
     @InjectMocks
     private UpdatePokemon updatePokemon;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Test
     public void testExecute_ExistingPokemon_ReturnsUpdatedPokemon() {
@@ -47,8 +44,8 @@ public class UpdatePokemonTest {
         pokemonEntity.setEvolutionLevel(1);
         pokemonEntity.setEvolves(false);
 
-        Pokemon updatedPokemon = new Pokemon.Builder()
-                .id_pokemon(pokemonEntity.getId())
+        Pokemon updatedPokemon =  Pokemon.builder()
+                .id(pokemonEntity.getId())
                 .name(requestDTO.getName())
                 .experience(requestDTO.getExperience())
                 .evolutionLevel(requestDTO.getEvolutionLevel())

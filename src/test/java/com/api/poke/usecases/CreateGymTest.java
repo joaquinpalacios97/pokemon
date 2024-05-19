@@ -1,4 +1,4 @@
-package com.api.poke.test.service;
+package com.api.poke.usecases;
 
 import com.api.poke.controller.requests.CreateGymRequestDTO;
 import com.api.poke.model.Gym;
@@ -11,9 +11,11 @@ import com.api.poke.repository.mappers.TrainerEntityMapper;
 import com.api.poke.usecases.CreateGym;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 
@@ -21,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 public class CreateGymTest {
     @Mock
     private GymRepository gymRepository;
@@ -34,11 +36,6 @@ public class CreateGymTest {
 
     @InjectMocks
     private CreateGym createGym;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testExecute_ValidRequestDTO_CreatesGym() {

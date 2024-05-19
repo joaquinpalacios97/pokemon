@@ -28,37 +28,22 @@ public class UpdateGym implements GymUpdater {
     GymRepository gymRepository;
     GymEntityMapper gymEntityMapper;
     TrainerRepository trainerRepository;
+
     public Gym execute(UUID id, UpdateGymRequestDTO requestDTO) {
         Optional<GymEntity> gymEntityOptional = gymRepository.findById(id);
+
         if (gymEntityOptional.isEmpty()){
-            throw new GymNotFoundException("Gym not foun for id " + id);
+            throw new GymNotFoundException("Gym not found for id " + id);
         }
+
         GymEntity gym =  gymEntityOptional.get();
         gym.setName(requestDTO.getName());
         gym.setType(requestDTO.getType());
 
-        List<Trainer> trainers = requestDTO.getTrainers();
-        List<UUID> trainerIds = trainers.stream()
-                .map(Trainer::getId)
-                .collect(Collectors.toList());
-        if (!trainerIds.isEmpty()) {
-            // Crear una lista para almacenar los TrainerEntity correspondientes a los IDs proporcionados
-            List<TrainerEntity> updatedTrainers = new ArrayList<>();
+        List<UUID> trainersIds = requestDTO.getTrainersIds();
 
-            // Iterar sobre los IDs de entrenadores y obtener los TrainerEntity correspondientes
-            for (UUID trainerId : trainerIds) {
-                Optional<TrainerEntity> trainerEntityOptional = trainerRepository.findById(trainerId);
-                if (trainerEntityOptional.isPresent()) {
-                    // Si se encuentra el ID , agregarlo
-                    updatedTrainers.add(trainerEntityOptional.get());
-                } else {
-                    // Si no se encuentra
-                    throw new TrainerNotFoundException("Trainer not found for id " + trainerId);
-                }
-            }
-            gym.setTrainers(updatedTrainers);
-        }
-
+        //TODO : BUSCAR ENTRENADORES POR IDSSS(1 CALL)
+        //TODO : comparar la cant de ids en la request contra el resultado de la bd , si son diferentes exc
 
         return gymEntityMapper.toModel(gymRepository.save(gym));
     }

@@ -22,7 +22,7 @@ public class ListPokemon implements PokemonLister {
         return repository
                 .findAll()
                 .stream()
-                .map(entity -> mapper.toModel(entity))
+                .map(mapper::toModel)
                 .collect(Collectors.toList());
     }
 }

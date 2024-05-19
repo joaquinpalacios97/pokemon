@@ -36,30 +36,21 @@ public class PokemonController {
         List<Pokemon> pokemons = pokemonLister.execute();
         List<ListPokemonResponseDTO> results = new ArrayList<>();
         for (Pokemon pokemon : pokemons) {
-            ListPokemonResponseDTO response = listPresenter.toResponse(pokemon);
-            results.add(response);
+            results.add(listPresenter.toResponse(pokemon));
         }
         return results;
     }
 
     @GetMapping("/{id}")
     public PokemonResponseDTO findPokemon(@PathVariable UUID id) {
-        Pokemon pokemon = pokemonFinder.findById(id);
-
-        return presenter.toResponse(pokemon);
+        return presenter.toResponse(pokemonFinder.findById(id));
     }
 
     @PostMapping("")
     public ResponseEntity<PokemonResponseDTO> createPokemon(
             @RequestBody @Validated CreatePokemonRequestDTO pokemonRequestDTO) {
-        //crear una variable con el formato del pokemon(modelo)
-        //y agarra los datos ingresados en pokemonRequestDTO
         Pokemon createdPokemon = pokemonCreator.execute(pokemonRequestDTO);
-        // crea una variable con el formato que se muestra de respuesta front
-        // y los datos se arman en base al builder con los datos que vienen
-        // del front
         PokemonResponseDTO responseDTO = presenter.toResponse(createdPokemon);
-        //devuelve el estado con los datos armados en PokemonResponseDTO
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
@@ -67,17 +58,13 @@ public class PokemonController {
     public PokemonResponseDTO updatePokemon(
             @PathVariable UUID id,
             @RequestBody @Validated UpdatePokemonRequestDTO updateRequestDTO) {
-        // Ejecuta la actualización del Pokémon
         Pokemon updatedPokemon = pokemonUpdater.execute(id, updateRequestDTO);
-        // Convierte el Pokémon actualizado en una respuesta para el cliente
-        PokemonResponseDTO responseDTO = presenter.toResponse(updatedPokemon);
-        return responseDTO;
+        return presenter.toResponse(updatedPokemon);
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deletePokemon(@PathVariable UUID id) {
         pokemonDeleter.deleteById(id);
-
         return ResponseEntity.noContent().build();
     }
 }

@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
+import java.util.UUID;
 
 @Builder
 @AllArgsConstructor
@@ -23,5 +24,5 @@ public class UpdateGymRequestDTO {
     PokemonType type;
 
     @NotEmpty(message = "List cannot be empty")
-    List<Trainer>trainers;
+    List<UUID> trainersIds;
 }

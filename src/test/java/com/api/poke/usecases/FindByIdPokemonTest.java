@@ -1,4 +1,4 @@
-package com.api.poke.test.service;
+package com.api.poke.usecases;
 
 import com.api.poke.exceptions.PokemonNotFoundException;
 import com.api.poke.model.Pokemon;
@@ -8,9 +8,11 @@ import com.api.poke.repository.mappers.PokemonEntityMapper;
 import com.api.poke.usecases.FindPokemon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -18,7 +20,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-
+@ExtendWith(MockitoExtension.class)
 public class FindByIdPokemonTest {
     @Mock
     private PokemonRepository pokemonRepository;
@@ -29,18 +31,14 @@ public class FindByIdPokemonTest {
     @InjectMocks
     private FindPokemon findPokemon;
 
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test
     public void testFindById_ExistingId_ReturnsPokemon() {
         UUID id = UUID.randomUUID();
         PokemonEntity pokemonEntity = new PokemonEntity();
         pokemonEntity.setId(id);
-        Pokemon expectedPokemon = new Pokemon.Builder()
-                .id_pokemon(UUID.randomUUID())
+        Pokemon expectedPokemon =  Pokemon.builder()
+                .id(UUID.randomUUID())
                 .build();
 
 
