@@ -36,6 +36,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setCode("BAD_REQUEST");
         apiError.setTitle("Validation Error");
         apiError.setMessage("Invalid request content.");
+
+
+        var something = ex.getBindingResult().getFieldErrors();
+
         ex.getBindingResult().getFieldErrors().forEach(error -> {
             ApiErrorDetail apiErrorDetail = new ApiErrorDetail();
             apiErrorDetail.setValue(error.getRejectedValue() != null ? error.getRejectedValue().toString() : null);

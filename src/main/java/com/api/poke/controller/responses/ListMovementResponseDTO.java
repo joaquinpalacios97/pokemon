@@ -1,6 +1,6 @@
 package com.api.poke.controller.responses;
 
-import com.api.poke.model.Attribute;
+import com.api.poke.model.PokemonType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,18 +12,17 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ListPokemonResponseDTO {
+public class ListMovementResponseDTO {
 
     private UUID id;
 
     private String name;
 
-    private int experience;
+    private PokemonType type;
 
-    private int evolutionLevel;
+    private int power;
 
-    private boolean evolves;
-  //  private byte[] image;
-  //  private String imageBase64;
-    Attribute attributes;
+    private int accuracy;
+
+    private int pp;
 }

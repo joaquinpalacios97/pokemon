@@ -5,22 +5,28 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class CreatePokemonRequestValidator implements ConstraintValidator<ValidEvolutionLevelConstraint, CreatePokemonRequestDTO> {
+   @Override
+   public void initialize(ValidEvolutionLevelConstraint constraintAnnotation) {
+   }
 
     @Override
-    public void initialize(ValidEvolutionLevelConstraint constraintAnnotation) {
-    }
+    public boolean isValid(CreatePokemonRequestDTO requestDTO, ConstraintValidatorContext context) {
+        boolean isValid = true;
 
-    @Override
-    public boolean isValid(CreatePokemonRequestDTO requestDTO, ConstraintValidatorContext constraintValidatorContext) {
         if (requestDTO.getEvolves() && (requestDTO.getEvolutionLevel() == null || requestDTO.getEvolutionLevel() <= 0)) {
-            return false;
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("If evolves is true, evolutionLevel must be a positive number.")
+                    .addPropertyNode("evolutionLevel").addConstraintViolation();
+            isValid = false;
         }
-
         if (!requestDTO.getEvolves() && requestDTO.getEvolutionLevel() != null) {
-            return false;
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("If evolves is false, evolutionLevel must be null.")
+                    .addPropertyNode("evolutionLevel").addConstraintViolation();
+            isValid = false;
         }
 
-        return true;
+        return isValid;
     }
 }
 

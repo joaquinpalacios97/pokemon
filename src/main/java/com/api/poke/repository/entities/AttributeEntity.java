@@ -1,6 +1,6 @@
 package com.api.poke.repository.entities;
 
-import com.api.poke.model.TrainerType;
+import com.api.poke.model.PokemonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,28 +9,25 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
-@Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Trainer")
-public class TrainerEntity {
+@Builder
+@Table(name = "Attribute")
+public class AttributeEntity {
 
+    @Column(columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
-
-    private String name;
-
-    private TrainerType type;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY , mappedBy = "trainer")
-    private List<TrainerPokemonEntity> pokeTrainers;
-
+    private int hp;
+    private int attack;
+    private int defense;
+    private int sp_attack;
+    private int sp_defense;
+    private int speed;
 }

@@ -1,6 +1,6 @@
 package com.api.poke.repository.entities;
 
-import com.api.poke.model.TrainerType;
+import com.api.poke.model.PokemonType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,24 +13,28 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Trainer")
-public class TrainerEntity {
-
+@Builder(toBuilder = true)
+@Table(name = "Movement")
+public class MovementEntity {
+    @Column(columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JdbcTypeCode(SqlTypes.VARCHAR)
-    @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
 
     private String name;
 
-    private TrainerType type;
+    private PokemonType type;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY , mappedBy = "trainer")
-    private List<TrainerPokemonEntity> pokeTrainers;
+    private int power;
 
+    private int accuracy;
+
+    private int pp;
+
+   /* @ManyToMany(mappedBy = "movements")
+    private List<PokemonEntity> pokemons;*/
 }

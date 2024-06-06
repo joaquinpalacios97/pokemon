@@ -14,8 +14,6 @@ import java.util.List;
 @Data
 @Builder
 public class ListTrainerResponseDTO {
-
-    String name;
-    List<Pokemon> pokemons;
+        List<TrainerResponseDTO> trainers;
 
 }

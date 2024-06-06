@@ -28,8 +28,8 @@ public class UpdatePokemon implements PokemonUpdater {
         if (pokemonToUpdate.isEmpty()) {
             throw new PokemonNotFoundException("Pokemon not found for id " + id);
         }
-//TODO: VER QUE ONDA
-        PokemonEntity pokemonEntity = pokemonToUpdate.get().builder()
+
+        PokemonEntity pokemonEntity = pokemonToUpdate.get().toBuilder()
                 .name(requestDTO.getName())
                 .experience(requestDTO.getExperience())
                 .evolutionLevel(requestDTO.getEvolutionLevel())

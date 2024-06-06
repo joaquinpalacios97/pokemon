@@ -25,9 +25,4 @@ public class CreateTrainerRequestDTO {
     @NotEmpty(message = "Name cannot be empty")
     String name;
 
-    @NotNull
-    @Size(min = 3, max = 3, message = "Los entrenadores deben contener exactamente 3 pokemones")
-    @Valid
-    private List<Pokemon> pokemons;
-
 }

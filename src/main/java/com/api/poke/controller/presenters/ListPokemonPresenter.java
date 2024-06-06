@@ -18,6 +18,7 @@ public class ListPokemonPresenter {
                 .evolves(pokemon.isEvolves())
           //      .image(pokemon.getImage())
           //      .imageBase64(convertirImagenABase64(pokemon.getImage()))
+                .attributes(pokemon.getAttributes())
                 .build();
     }
     /*private String convertirImagenABase64(byte[] imagen) {

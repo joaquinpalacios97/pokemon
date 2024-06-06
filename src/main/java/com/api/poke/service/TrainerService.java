@@ -6,17 +6,21 @@ import com.api.poke.controller.requests.UpdatePokemonTrainerRequest;
 import com.api.poke.controller.requests.UpdateTrainerRequestDTO;
 import com.api.poke.exceptions.PokemonNotFoundException;
 import com.api.poke.exceptions.TrainerNotFoundException;
+import com.api.poke.model.Pokemon;
 import com.api.poke.model.Trainer;
 import com.api.poke.repository.PokemonRepository;
 import com.api.poke.repository.TrainerRepository;
-import com.api.poke.repository.entities.PokemonEntity;
-import com.api.poke.repository.entities.TrainerEntity;
+import com.api.poke.repository.entities.*;
+import com.api.poke.repository.MovementRepository;
+import com.api.poke.repository.mappers.FullTrainerEntityMapper;
 import com.api.poke.repository.mappers.GymEntityMapper;
+import com.api.poke.repository.mappers.PokemonEntityMapper;
 import com.api.poke.repository.mappers.TrainerEntityMapper;
 import com.api.poke.usecases.GymFinder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,37 +35,64 @@ public class TrainerService implements ITrainerService {
     TrainerEntityMapper trainerEntityMapper;
     GymEntityMapper gymEntityMapper;
     GymFinder gymFinder;
+    MovementRepository movementRepository;
+    PokemonEntityMapper pokemonEntityMapper;
+    FullTrainerEntityMapper fullTrainerEntityMapper;
 
     @Override
     public List<Trainer> findAll() {
         return trainerRepository
                 .findAll()
                 .stream()
-                .map(entity -> trainerEntityMapper.toModel(entity))
+                .map(entity -> fullTrainerEntityMapper.toModel(entity))
                 .collect(Collectors.toList());
     }
 
     public Trainer saveTrainer(CreateTrainerRequestDTO requestDTO) {
         Trainer trainer = Trainer.builder()
                 .name(requestDTO.getName())
-                .pokemons(requestDTO.getPokemons())
                 .build();
 
-        List<PokemonEntity> pokemonEntities = requestDTO.getPokemons().stream()
-                .map(pokemonDTO -> PokemonEntity.builder()
-                        .name(pokemonDTO.getName())
-                        .experience(pokemonDTO.getExperience())
-                        .evolutionLevel(pokemonDTO.getEvolutionLevel())
-                        .evolves(pokemonDTO.isEvolves())
-                        .build())
-                .collect(Collectors.toList());
-
+        List<PokemonEntity> allPokemons = pokemonRepository.findAll();
+        Collections.shuffle(allPokemons);
+        List<PokemonEntity> randomPokemons = allPokemons.stream()
+                .limit(3)
+                .toList();
 
         TrainerEntity trainerEntity = trainerEntityMapper.toEntity(trainer);
-        trainerEntity.setPokemons(pokemonEntities);
 
+        List<TrainerPokemonEntity> trainerPokemon = randomPokemons.stream()
+                .map(pokemon -> {
+                    List<MovementEntity> movementsByType = movementRepository.findAllByType(pokemon.getType());
+                    Collections.shuffle(movementsByType);
+                    List<MovementEntity> randomMovements = movementsByType.stream()
+                            .limit(4)
+                            .toList();
 
-        return trainerEntityMapper.toModel(trainerRepository.save(trainerEntity));
+                    TrainerPokemonEntity trainerPokemonEntity = TrainerPokemonEntity.builder()
+                            .trainer(trainerEntity)
+                            .pokemon(pokemon)
+                            .build();
+
+                    List<TrainerPokemonMovementEntity> trainerPokemonMovementEntities = randomMovements.stream()
+                            .map(movement -> TrainerPokemonMovementEntity.builder()
+                                    .trainerPokemon(trainerPokemonEntity)
+                                    .movement(movement)
+                                    .build())
+                            .toList();
+
+                    trainerPokemonEntity.setTrainerPokemonMovements(trainerPokemonMovementEntities);
+
+                    return trainerPokemonEntity;
+                })
+                .toList();
+
+        trainerEntity.setPokeTrainers(trainerPokemon);
+
+        TrainerEntity savedTrainerEntity = trainerRepository.save(trainerEntity);
+
+        return  fullTrainerEntityMapper.toModel(savedTrainerEntity);
+
     }
 
     @Override
@@ -104,9 +135,9 @@ public class TrainerService implements ITrainerService {
         }
         TrainerEntity trainerEntity = trainerEntityOptional.get();
 
-        List<PokemonEntity> currentPokemons = trainerEntity.getPokemons();
+        //List<PokemonEntity> currentPokemons = trainerEntity.getPokemons();
 
-        currentPokemons.clear();
+        //currentPokemons.clear();
 
         List<UUID> pokemonIds = requestDTO.getIds();
 
@@ -117,10 +148,10 @@ public class TrainerService implements ITrainerService {
                 throw new PokemonNotFoundException("Pokemon not found or id " + pokemonId);
             }
 
-            currentPokemons.add(pokemonEntityOptional.get());
+            //currentPokemons.add(pokemonEntityOptional.get());
         }
 
-        trainerEntity.setPokemons(currentPokemons);
+        //trainerEntity.setPokemons(currentPokemons);
         return trainerEntityMapper.toModel(trainerRepository.save(trainerEntity));
     }
 
@@ -133,17 +164,17 @@ public class TrainerService implements ITrainerService {
         }
         TrainerEntity trainerEntity = trainerEntityOptional.get();
 
-        List<PokemonEntity> currentPokemons = trainerEntity.getPokemons();
+      //  List<PokemonEntity> currentPokemons = trainerEntity.getPokemons();
 
-        currentPokemons.removeIf(pokemonEntity -> pokemonEntity.getId().equals(requestDTO.getOldPokemonId()));
+      //  currentPokemons.removeIf(pokemonEntity -> pokemonEntity.getId().equals(requestDTO.getOldPokemonId()));
 
         Optional<PokemonEntity> newPokemonOptional = pokemonRepository.findById(requestDTO.getNewPokemonId());
         if (newPokemonOptional.isEmpty()) {
             throw new PokemonNotFoundException("New Pokemon not found for id " + requestDTO.getNewPokemonId());
         }
-        currentPokemons.add(newPokemonOptional.get());
+      //  currentPokemons.add(newPokemonOptional.get());
 
-        trainerEntity.setPokemons(currentPokemons);
+       //trainerEntity.setPokemons(currentPokemons);
         return trainerEntityMapper.toModel(trainerRepository.save(trainerEntity));
     }
 

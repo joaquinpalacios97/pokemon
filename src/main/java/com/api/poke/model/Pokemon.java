@@ -1,9 +1,14 @@
 package com.api.poke.model;
 
+import com.api.poke.repository.entities.AttributeEntity;
+import com.api.poke.repository.entities.MovementEntity;
+import com.api.poke.repository.entities.TrainerPokemonEntity;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.List;
 import java.util.UUID;
 
 //ESTE YA ES EL TRANSFORMADO
@@ -11,76 +16,28 @@ import java.util.UUID;
 @Getter
 @Builder
 public class Pokemon {
+
     private UUID id;
+
     private String name;
+
+    private PokemonType type;
+
     private int experience;
+
     private Integer evolutionLevel;
+
     private boolean evolves;
    // private byte[] image;
     //private String imageBase64;
 
-    public void evolve() {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "attributes_id", referencedColumnName = "id")
+    private Attribute attributes;
 
-    }
 
- /*   public Pokemon(Builder builder) {
-        this.id = builder.id;
-        this.name = builder.name;
-        this.experience = builder.experience;
-        this.evolutionLevel = builder.evolutionLevel;
-        this.evolves = builder.evolves;
-      //  this.image = builder.image;
-       // this.imageBase64 = builder.imageBase64;
-    }
-    public static class Builder {
-        private UUID id;
-        private String name;
-        private int experience;
-        private int evolutionLevel;
-        private boolean evolves;
-
-        //private byte[] image;
-        //private String imageBase64;
-
-  public Builder id_pokemon(UUID id_pokemon){
-      this.id = id_pokemon;
-      return this;
-  }
-
-    public Builder name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Builder experience(int experience) {
-        this.experience = experience;
-        return this;
-    }
-
-    public Builder evolutionLevel(int evolutionLevel) {
-        this.evolutionLevel = evolutionLevel;
-        return this;
-    }
-
-    public Builder evolves(boolean evolves) {
-        this.evolves = evolves;
-        return this;
-    }
-
-    /*public Builder image(byte[] image){
-        this.image = image;
-        return this;
-    }*/
-    /*public Builder imageBase64(String imageBase64){
-        this.imageBase64 = imageBase64;
-        return this;
-    }*/
-/*
-    public Pokemon build() {
-        return new Pokemon(this);
-    }
-
-}*/
+    @OneToMany(mappedBy = "pokemon")
+    private List<TrainerPokemon> pokeTrainers;
 
 }
 

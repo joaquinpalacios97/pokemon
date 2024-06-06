@@ -31,14 +31,10 @@ public class TrainerController {
     TrainerPresenter trainerPresenter;
 
     @GetMapping("")
-    public List<ListTrainerResponseDTO> getAll() {
+    public ResponseEntity<ListTrainerResponseDTO> getAllTrainers() {
         List<Trainer> trainers = iTrainerService.findAll();
-        List<ListTrainerResponseDTO> listDTO = new ArrayList<>();
-        for (Trainer trainer : trainers) {
-            ListTrainerResponseDTO responseDTO = listTrainerPresenter.toResponse(trainer);
-            listDTO.add(responseDTO);
-        }
-        return listDTO;
+        ListTrainerResponseDTO listTrainerResponseDTO = listTrainerPresenter.toResponse(trainers);
+        return ResponseEntity.ok(listTrainerResponseDTO);
     }
 
     @GetMapping("/{id}")

@@ -1,6 +1,6 @@
 package com.api.poke.repository.entities;
 
-import com.api.poke.model.TrainerType;
+import com.api.poke.model.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,14 +11,13 @@ import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
-
 @Data
-@Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Trainer")
-public class TrainerEntity {
+@Builder
+@Table(name = "Ladder")
+public class LadderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,11 +25,8 @@ public class TrainerEntity {
     @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
 
-    private String name;
+    private Status status;
 
-    private TrainerType type;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY , mappedBy = "trainer")
-    private List<TrainerPokemonEntity> pokeTrainers;
-
+    /*@OneToMany(mappedBy = "ladder")
+    private List<ChallengeEntity> challenges;*/
 }

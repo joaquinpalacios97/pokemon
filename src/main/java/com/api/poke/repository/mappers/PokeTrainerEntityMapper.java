@@ -3,18 +3,14 @@ package com.api.poke.repository.mappers;
 import com.api.poke.model.Attribute;
 import com.api.poke.model.Pokemon;
 import com.api.poke.repository.entities.AttributeEntity;
-import com.api.poke.repository.entities.MovementEntity;
 import com.api.poke.repository.entities.PokemonEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
-
-
 @Component
-public class PokemonEntityMapper {
-    public PokemonEntity toEntity(Pokemon pokemon) {
+public class PokeTrainerEntityMapper {
 
+    public PokemonEntity toEntity (Pokemon pokemon){
         AttributeEntity attributes = AttributeEntity.builder()
                 .id(pokemon.getId())
                 .hp(pokemon.getAttributes().getHp())
@@ -25,16 +21,14 @@ public class PokemonEntityMapper {
                 .speed(pokemon.getAttributes().getSpeed())
                 .build();
 
-        PokemonEntity entity =  PokemonEntity.builder()
-                .id(pokemon.getId())
-                .name(pokemon.getName())
-                .type(pokemon.getType())
-                .experience(pokemon.getExperience())
-                .evolutionLevel(pokemon.getEvolutionLevel())
-                .evolves(pokemon.isEvolves())
-                .attributes(attributes)
+        PokemonEntity entity = new PokemonEntity();
+        entity.setId(pokemon.getId());
+        entity.setName(pokemon.getName());
+        entity.setExperience(pokemon.getExperience());
+        entity.setEvolutionLevel(pokemon.getEvolutionLevel());
+        entity.setEvolves(pokemon.isEvolves());
+        entity.setAttributes(attributes);
         //entity.setImage(pokemon.getImage());
-                .build();
         return entity;
     }
 
@@ -54,13 +48,13 @@ public class PokemonEntityMapper {
         Pokemon pokemon =  Pokemon.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .type(entity.getType())
                 .experience(entity.getExperience())
                 .evolutionLevel(entity.getEvolutionLevel())
                 .evolves(entity.isEvolves())
                 .attributes(attribute)
-              //  .image(entity.getImage())
-                .build(); // Aquí se construye la instancia de Pokemon
+                //  .image(entity.getImage())
+                .build();
         return pokemon;
     }
+
 }

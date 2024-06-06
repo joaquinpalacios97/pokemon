@@ -6,18 +6,27 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
 import java.util.UUID;
 
 @Builder
-@FieldDefaults(makeFinal = true)
 @Getter
-public class PokemonResponseDTO {
-//ESTO VA PARA EL FRONT
+@FieldDefaults(makeFinal = true)
+public class PokemonMovementResponseDTO {
+
     UUID id;
+
     String name;
+
     PokemonType type;
+
     int experience;
+
     Integer evolutionLevel;
+
     boolean evolves;
+
     Attribute attributes;
+
+    List<TrainerPokemonMovementResponseDTO> movements;
 }

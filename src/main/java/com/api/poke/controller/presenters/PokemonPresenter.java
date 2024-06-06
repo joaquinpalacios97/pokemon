@@ -6,12 +6,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PokemonPresenter {
-//ESTO SE ARMA DEL/ EN BASE AL MODELO .     DE ENTIDAD PASO A MODELO PERO NO ACÁ
+//ESTO SE ARMA DEL/ EN BASE AL MODELO .
     public PokemonResponseDTO toResponse(Pokemon pokemon) {
         return PokemonResponseDTO
                 .builder()
-                .id(String.valueOf(pokemon.getId()))
+                .id(pokemon.getId())
                 .name(pokemon.getName())
+                .type(pokemon.getType())
+                .experience(pokemon.getExperience())
+                .evolutionLevel(pokemon.getEvolutionLevel())
+                .evolves(pokemon.isEvolves())
+                .attributes(pokemon.getAttributes())
                 .build();
     }
 }
