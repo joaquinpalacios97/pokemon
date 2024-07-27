@@ -7,6 +7,7 @@ import com.api.poke.controller.requests.CreateTrainerPokemonsRequest;
 import com.api.poke.controller.requests.UpdatePokemonTrainerRequest;
 import com.api.poke.controller.requests.UpdateTrainerRequestDTO;
 import com.api.poke.controller.responses.ListTrainerResponseDTO;
+import com.api.poke.controller.responses.PokemonResponseDTO;
 import com.api.poke.controller.responses.TrainerResponseDTO;
 import com.api.poke.model.Trainer;
 import com.api.poke.service.ITrainerService;
@@ -86,4 +87,5 @@ public class TrainerController {
         iTrainerService.deleteTrainer(id);
         return ResponseEntity.noContent().build();
     }
+
 }

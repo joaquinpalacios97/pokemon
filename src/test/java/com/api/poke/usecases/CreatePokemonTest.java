@@ -53,14 +53,14 @@ public class CreatePokemonTest {
 
         PokemonEntity pokemonEntity = new PokemonEntity();
 
-        when(pokemonEntityMapper.toEntity(any(Pokemon.class))).thenReturn(pokemonEntity); // Mock the toEntity method of the mapper
-        when(pokemonRepository.save(any(PokemonEntity.class))).thenReturn(pokemonEntity); // Mock the save method of the repository
-        when(pokemonEntityMapper.toModel(any(PokemonEntity.class))).thenReturn(pokemon); // Mock the toModel method of the mapper
+        when(pokemonEntityMapper.toEntity(any(Pokemon.class))).thenReturn(pokemonEntity);
+        when(pokemonRepository.save(any(PokemonEntity.class))).thenReturn(pokemonEntity);
+        when(pokemonEntityMapper.toModel(any(PokemonEntity.class))).thenReturn(pokemon);
 
-        // Act
+
         Pokemon savedPokemon = createPokemon.execute(requestDTO);
 
-        // Assert
+
         assertNotNull(savedPokemon);
         assertEquals(pokemon.getName(), savedPokemon.getName());
         assertEquals(pokemon.getExperience(), savedPokemon.getExperience());

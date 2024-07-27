@@ -2,17 +2,15 @@ package com.api.poke.repository.entities;
 
 import com.api.poke.model.PokemonType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,6 +33,8 @@ public class PokemonEntity {
 
     private boolean evolves;
 
+
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attributes_id", referencedColumnName = "id")
     private AttributeEntity attributes;
@@ -43,9 +43,11 @@ public class PokemonEntity {
     @OneToMany(mappedBy = "pokemon")
     private List<TrainerPokemonEntity> pokeTrainers;
 
-    /*@Lob
+  /*  @Lob
     @Column(columnDefinition = "LONGBLOB")
-    private byte[] image;*/
-
-   // private String imageBase64;
+    private byte[] image;
+*/
+    @Lob
+    @Column(name = "image_base64", columnDefinition = "LONGTEXT")
+    private String imageBase64;
 }

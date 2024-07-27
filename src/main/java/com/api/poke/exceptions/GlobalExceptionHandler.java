@@ -51,4 +51,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, apiError,
                 new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        apiError.setCode("INTERNAL_SERVER_ERROR");
+        apiError.setTitle("Internal Server Error");
+        apiError.setMessage("An unexpected error occurred. Please try again later.");
+
+        ex.printStackTrace();
+
+        return new ResponseEntity<>(apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

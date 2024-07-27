@@ -1,17 +1,16 @@
 package com.api.poke.repository.entities;
 
 import com.api.poke.model.Trainer;
+import com.api.poke.model.TrainerPokemon;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 import java.util.UUID;
-@Data
+@Setter
+@Getter
 @Builder
 @Entity
 @AllArgsConstructor
@@ -32,6 +31,21 @@ public class TrainerPokemonEntity {
     @JoinColumn(name = "pokemon_id")
     private PokemonEntity pokemon;
 
-    @OneToMany(mappedBy = "trainerPokemon", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trainerPokemon", cascade = CascadeType.ALL )
     private List<TrainerPokemonMovementEntity> trainerPokemonMovements;
+
+    private int currentHp;
+
+    @PostLoad
+    @PostPersist
+    public void initializeCurrentHp() {
+        if (currentHp == 0) {
+            this.currentHp = pokemon.getAttributes().getHp();
+        }
+    }
+
+    public boolean isAlive() {
+        return currentHp > 0;
+    }
+
 }

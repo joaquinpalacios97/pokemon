@@ -32,7 +32,7 @@ public class ListGymTest {
 
     @Test
     public void testExecute_ReturnsListOfGyms() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
         GymEntity gymEntity1 = new GymEntity();
@@ -51,10 +51,10 @@ public class ListGymTest {
         when(gymEntityMapper.toModel(gymEntity1)).thenReturn(gym1);
         when(gymEntityMapper.toModel(gymEntity2)).thenReturn(gym2);
 
-        // Act
+
         List<Gym> actualGymList = listGym.execute();
 
-        // Assert
+
         assertEquals(expectedGymList.size(), actualGymList.size());
         assertEquals(expectedGymList, actualGymList);
     }

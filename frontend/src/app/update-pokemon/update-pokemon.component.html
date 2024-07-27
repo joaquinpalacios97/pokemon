@@ -6,7 +6,7 @@
       <input
         type="text"
         class="form-control"
-        [(ngModel)]="poke.nombre"
+        [(ngModel)]="poke.name"
         name="nombre"
         required
         minlength="4"
@@ -21,7 +21,7 @@
       <input
         type="number"
         class="form-control"
-        [(ngModel)]="poke.experiencia"
+        [(ngModel)]="poke.experience"
         name="experiencia"
         required
         placeholder="Ingrese la experiencia del Pokemon"
@@ -34,7 +34,7 @@
       <input
         type="number"
         class="form-control"
-        [(ngModel)]="poke.nivel_evolucion"
+        [(ngModel)]="poke.evolutionLevel"
         name="nivel_evolucion"
         required
         placeholder="Ingrese el nivel de evolución del Pokemon"
@@ -46,7 +46,7 @@
       <label>Evoluciona:</label>
       <select
         class="form-control"
-        [(ngModel)]="poke.evoluciona"
+        [(ngModel)]="poke.evolves"
         name="evoluciona"
         required
       >

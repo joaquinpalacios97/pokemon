@@ -8,10 +8,11 @@ import lombok.*;
 import java.util.UUID;
 
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+
 public class Attribute {
 
     private UUID id;

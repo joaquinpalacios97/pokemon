@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+
 public class MovementEntityMapper {
 
     public MovementEntity toEntity(Movement movement){

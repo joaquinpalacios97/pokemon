@@ -27,25 +27,24 @@ public class DeletePokemonTest {
 
     @Test
     public void testDeleteById_PokemonFound_DeletesPokemon() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         PokemonEntity pokemonEntity = new PokemonEntity();
         when(pokemonRepository.findById(id)).thenReturn(Optional.of(pokemonEntity));
 
-        // Act
+
         deletePokemon.deleteById(id);
 
-        // Assert
+
         verify(pokemonRepository, times(1)).deleteById(id);
     }
 
     @Test
     public void testDeleteById_PokemonNotFound_ThrowsException() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         when(pokemonRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(PokemonNotFoundException.class, () -> deletePokemon.deleteById(id));
         verify(pokemonRepository, never()).deleteById(id);
     }

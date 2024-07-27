@@ -1,6 +1,7 @@
 package com.api.poke.controller.responses;
 
 import com.api.poke.model.Attribute;
+import com.api.poke.model.PokemonType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +19,13 @@ public class ListPokemonResponseDTO {
 
     private String name;
 
+    private PokemonType type;
+
     private int experience;
 
     private int evolutionLevel;
+
+    private String imageBase64;
 
     private boolean evolves;
   //  private byte[] image;

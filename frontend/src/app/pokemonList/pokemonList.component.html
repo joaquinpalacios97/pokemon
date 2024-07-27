@@ -1,0 +1,47 @@
+<h2 class="text-center">Lista de Pokemones</h2>
+<div class="pokemon-container">
+  <div class="pokemon" *ngFor="let pokemon of pokemone" [ngClass]="getPokemonClass(pokemon.type)">
+    <div class="pokemon-info">
+      <div [ngClass]="getImageContainerClass(pokemon.type)">
+        <img [src]="getImagenUrl(pokemon.image_base64)" alt="Imagen de Pokemon" />
+      </div>
+      <div [ngClass]="getContentClass(pokemon.type)">
+      <div class="pokemon-name">
+        <p>{{ pokemon.name }}</p>
+      </div>
+        <div>
+          <div class="pokemon-type">
+            <p>{{pokemon.type}}</p>
+          </div>
+    <div class="pokemon-stats">
+      <div class="attributes-container">
+        <div class="attributes-left">
+      <p>Ataque: {{pokemon.attributes.attack}}</p>
+      <p>Defensa: {{pokemon.attributes.defense}}</p>
+      <p>Hp: {{pokemon.attributes.hp}}</p>
+    </div>
+    <div class="attributes-right">
+      <p>Sp Ataque: {{pokemon.attributes.sp_attack}}</p>
+      <p>Sp Defensa: {{pokemon.attributes.sp_defense}}</p>
+      <p>Velocidad: {{pokemon.attributes.speed}}</p>
+    </div>
+    </div>
+      </div>
+      
+    </div>
+    </div>
+  </div>
+
+   <!-- <div class="pokemon-actions">
+      <button (click)="updatePokemon(pokemon.id_pokemon)" class="btn btn-info">
+        Editar
+      </button>
+      <button
+        (click)="deletePokemon(pokemon.id_pokemon)"
+        class="btn btn-danger"
+      >
+        Eliminar
+      </button>
+    </div>
+  </div>-->
+</div>

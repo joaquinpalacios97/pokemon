@@ -27,6 +27,7 @@ public class TrainerEntityMapper {
         TrainerEntity entity = new TrainerEntity();
         entity.setId(trainer.getId());
         entity.setName(trainer.getName());
+        entity.setType(trainer.getType());
         return entity;
     }
 
@@ -34,6 +35,7 @@ public class TrainerEntityMapper {
         return Trainer.builder()
                 .id(trainerEntity.getId())
                 .name(trainerEntity.getName())
+                .type(trainerEntity.getType())
                 .build();
     }
 }

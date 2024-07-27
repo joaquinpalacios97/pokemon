@@ -16,10 +16,14 @@ import java.util.stream.Collectors;
 public class TrainerPresenter {
 
     private final PokemonPresenter pokemonPresenter;
-    private final TrainerPokemonMovementPresenter trainerPokemonMovementPresenter;
     private MovementPresenter movementPresenter;
 
     public TrainerResponseDTO toResponse(Trainer trainer) {
+
+        if (trainer == null) {
+            throw new IllegalArgumentException("Trainer cannot be null en el presenter");
+        }
+
         List<TrainerPokemonResponseDTO> pokeTrainers = trainer.getPokeTrainers().stream()
                 .map(pokeTrainer -> TrainerPokemonResponseDTO.builder()
                         .id(pokeTrainer.getId())

@@ -8,6 +8,7 @@ import com.api.poke.repository.entities.PokemonEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
 import java.util.stream.Collectors;
 
 
@@ -33,6 +34,9 @@ public class PokemonEntityMapper {
                 .evolutionLevel(pokemon.getEvolutionLevel())
                 .evolves(pokemon.isEvolves())
                 .attributes(attributes)
+                .imageBase64(pokemon.getImageBase64())
+                /*.image(pokemon.getImage())
+                .imageBase64(pokemon.getImageBase64())*/
         //entity.setImage(pokemon.getImage());
                 .build();
         return entity;
@@ -59,8 +63,10 @@ public class PokemonEntityMapper {
                 .evolutionLevel(entity.getEvolutionLevel())
                 .evolves(entity.isEvolves())
                 .attributes(attribute)
-              //  .image(entity.getImage())
-                .build(); // Aquí se construye la instancia de Pokemon
+                .imageBase64(entity.getImageBase64())
+               /* .image(entity.getImage())
+                .imageBase64(entity.getImageBase64())*/
+                .build();
         return pokemon;
     }
 }

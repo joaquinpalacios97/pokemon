@@ -14,6 +14,7 @@ import java.util.UUID;
 //@FieldDefaults(makeFinal = true)
 public class TrainerPokemonResponseDTO {
     UUID id;
+
     PokemonResponseDTO pokemon;
 
     List<TrainerPokemonMovementResponseDTO> movements;

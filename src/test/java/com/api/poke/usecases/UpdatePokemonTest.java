@@ -34,7 +34,7 @@ public class UpdatePokemonTest {
 
     @Test
     public void testExecute_ExistingPokemon_ReturnsUpdatedPokemon() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         UpdatePokemonRequestDTO requestDTO = new UpdatePokemonRequestDTO("Pikachu", 100, 2, true);
         PokemonEntity pokemonEntity = new PokemonEntity();
@@ -56,10 +56,10 @@ public class UpdatePokemonTest {
         when(pokemonRepository.save(pokemonEntity)).thenReturn(pokemonEntity);
         when(pokemonEntityMapper.toModel(pokemonEntity)).thenReturn(updatedPokemon);
 
-        // Act
+
         Pokemon result = updatePokemon.execute(id, requestDTO);
 
-        // Assert
+
         assertEquals(updatedPokemon, result);
         assertEquals(requestDTO.getName(), result.getName());
         assertEquals(requestDTO.getExperience(), result.getExperience());
@@ -69,13 +69,13 @@ public class UpdatePokemonTest {
 
     @Test
     public void testExecute_NonExistingPokemon_ThrowsException() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         UpdatePokemonRequestDTO requestDTO = new UpdatePokemonRequestDTO("Pikachu", 100, 2, true);
 
         when(pokemonRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
+
         assertThrows(PokemonNotFoundException.class, () -> {
             updatePokemon.execute(id, requestDTO);
         });

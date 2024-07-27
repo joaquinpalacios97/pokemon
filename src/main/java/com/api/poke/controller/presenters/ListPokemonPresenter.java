@@ -13,15 +13,14 @@ public class ListPokemonPresenter {
                 .builder()
                 .id(pokemon.getId())
                 .name(pokemon.getName())
+                .type(pokemon.getType())
                 .experience(pokemon.getExperience())
                 .evolutionLevel(pokemon.getEvolutionLevel())
                 .evolves(pokemon.isEvolves())
+                .imageBase64(pokemon.getImageBase64())
           //      .image(pokemon.getImage())
           //      .imageBase64(convertirImagenABase64(pokemon.getImage()))
                 .attributes(pokemon.getAttributes())
                 .build();
     }
-    /*private String convertirImagenABase64(byte[] imagen) {
-        return Base64.getEncoder().encodeToString(imagen);
-    }*/
 }

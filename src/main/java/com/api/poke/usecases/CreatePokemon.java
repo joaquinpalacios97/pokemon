@@ -12,7 +12,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -25,7 +28,7 @@ public class CreatePokemon implements PokemonCreator{
 
     public Pokemon execute(CreatePokemonRequestDTO requestDTO) {
 
-        CreateAttributeDTO attributeDTO = requestDTO.getAtributes();
+        CreateAttributeDTO attributeDTO = requestDTO.getAttributes();
 
         Attribute attributeEntity = Attribute.builder()
                 .hp(attributeDTO.getHp())
@@ -43,6 +46,8 @@ public class CreatePokemon implements PokemonCreator{
                 .evolutionLevel(requestDTO.getEvolutionLevel())
                 .evolves(requestDTO.getEvolves())
                 .attributes(attributeEntity)
+                .imageBase64(requestDTO.getImageBase64())
+               // .imageBase64(base64Image)
                 .build();
 
         PokemonEntity pokemonEntity = pokemonEntityMapper.toEntity(pokemon);

@@ -2,18 +2,23 @@ package com.api.poke.controller;
 
 import com.api.poke.controller.presenters.ListPokemonPresenter;
 import com.api.poke.controller.presenters.PokemonPresenter;
+import com.api.poke.controller.requests.CreateAttributeDTO;
 import com.api.poke.controller.requests.CreatePokemonRequestDTO;
 import com.api.poke.controller.requests.UpdatePokemonRequestDTO;
 import com.api.poke.controller.responses.ListPokemonResponseDTO;
 import com.api.poke.controller.responses.PokemonResponseDTO;
 import com.api.poke.model.Pokemon;
 import com.api.poke.usecases.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @RestController
@@ -46,14 +51,13 @@ public class PokemonController {
         return presenter.toResponse(pokemonFinder.findById(id));
     }
 
-    @PostMapping("")
+   @PostMapping("")
     public ResponseEntity<PokemonResponseDTO> createPokemon(
             @RequestBody @Validated CreatePokemonRequestDTO pokemonRequestDTO) {
-        Pokemon createdPokemon = pokemonCreator.execute(pokemonRequestDTO);
-        PokemonResponseDTO responseDTO = presenter.toResponse(createdPokemon);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+       Pokemon createdPokemon = pokemonCreator.execute(pokemonRequestDTO);
+       PokemonResponseDTO responseDTO = presenter.toResponse(createdPokemon);
+       return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
-
     @PutMapping("/{id}")
     public PokemonResponseDTO updatePokemon(
             @PathVariable UUID id,

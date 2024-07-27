@@ -29,7 +29,6 @@ public class GymMapperTest {
 
     @Test
     public void testToEntity() {
-        // Create mock data
         UUID gymId = UUID.randomUUID();
         String gymName = "Water Gym";
         String gymType = "WATER";

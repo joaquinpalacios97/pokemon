@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +22,7 @@ import java.util.List;
 @Builder
 @FieldDefaults(makeFinal = true)
 @Getter
+@Setter
 @ValidEvolutionLevelConstraint
 public class CreatePokemonRequestDTO {
 
@@ -39,9 +41,11 @@ public class CreatePokemonRequestDTO {
     Boolean evolves;
 
     @NotNull(message = "Attributes cannot be null")
-    CreateAttributeDTO atributes;
+    CreateAttributeDTO attributes;
 
-   /* @NotNull(message = "Image is required")
+    /*@NotNull(message = "Image is required")
     MultipartFile image;*/
+
+    String imageBase64;
 
 }

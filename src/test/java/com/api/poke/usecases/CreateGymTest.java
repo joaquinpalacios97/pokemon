@@ -55,16 +55,15 @@ public class CreateGymTest {
                 .trainers(requestDTO.getTrainers())
                 .build();
 
-        GymEntity gymEntity = new GymEntity(); // Dummy GymEntity
+        GymEntity gymEntity = new GymEntity();
 
         when(gymEntityMapper.toEntity(any(Gym.class))).thenReturn(gymEntity);
         when(gymRepository.save(any(GymEntity.class))).thenReturn(gymEntity);
         when(gymEntityMapper.toModel(any(GymEntity.class))).thenReturn(gym);
 
-        // Act
+
         Gym createdGym = createGym.execute(requestDTO);
 
-        // Assert
         assertNotNull(createdGym);
         assertEquals(gym.getName(), createdGym.getName());
         assertEquals(gym.getType(), createdGym.getType());

@@ -1,57 +1,144 @@
 <div class="col-md-6 offset-md-3">
-  <h3 class="text-center">Registro de pokemon</h3>
+  <h3 class="text-center">Registro de Pokémon</h3>
   <form (ngSubmit)="onSubmit()" #pokemonForm="ngForm">
     <div class="form-group">
-      <label>Nombre :</label>
+      <label>Nombre:</label>
       <input
         type="text"
         class="form-control"
-        id="nombre"
-        [(ngModel)]="poke.nombre"
-        name="nombre"
+        id="name"
+        [(ngModel)]="poke.name"
+        name="name"
+        required
       />
     </div>
     <div class="form-group">
-      <label>Experiencia :</label>
+      <label>Tipo:</label>
+      <select
+        class="form-control"
+        id="type"
+        [(ngModel)]="poke.type"
+        name="type"
+        required
+      >
+        <option *ngFor="let type of pokemonTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Experiencia:</label>
       <input
         type="number"
         class="form-control"
-        id="experiencia"
-        [(ngModel)]="poke.experiencia"
-        name="experiencia"
+        id="experience"
+        [(ngModel)]="poke.experience"
+        name="experience"
+        required
       />
     </div>
     <div class="form-group">
-      <label>Evoluciona :</label>
-      <input
-        type="text"
+      <label>Evoluciona:</label>
+      <select
         class="form-control"
-        id="evoluciona"
-        [(ngModel)]="poke.evoluciona"
-        name="evoluciona"
-      />
+        id="evolves"
+        [(ngModel)]="poke.evolves"
+        name="evolves"
+        required
+      >
+        <option [value]="true">Sí</option>
+        <option [value]="false">No</option>
+      </select>
     </div>
     <div class="form-group">
-      <label>Nivel evolucion :</label>
+      <label>Nivel de Evolución:</label>
       <input
         type="number"
         class="form-control"
-        id="nivel_evolucion"
-        [(ngModel)]="poke.nivel_evolucion"
-        name="nivel_evolucion"
+        id="evolutionLevel"
+        [(ngModel)]="poke.evolutionLevel"
+        name="evolutionLevel"
+        required
       />
     </div>
     <div class="form-group">
-      <label for="imagen">Imagen:</label>
+      <label>Atributos:</label>
+      <div class="form-group">
+        <label>HP:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="hp"
+          [(ngModel)]="poke.attributes.hp"
+          name="hp"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Ataque:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="attack"
+          [(ngModel)]="poke.attributes.attack"
+          name="attack"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Defensa:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="defense"
+          [(ngModel)]="poke.attributes.defense"
+          name="defense"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Ataque Especial:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="sp_attack"
+          [(ngModel)]="poke.attributes.sp_attack"
+          name="sp_attack"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Defensa Especial:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="sp_defense"
+          [(ngModel)]="poke.attributes.sp_defense"
+          name="sp_defense"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label>Velocidad:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="speed"
+          [(ngModel)]="poke.attributes.speed"
+          name="speed"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="image">Imagen:</label>
       <input
         type="file"
-        id="imagen"
-        name="imagen"
+        id="image"
+        name="image"
         accept="image/*"
         (change)="onFileSelected($event)"
       />
       <img
-        *ngIf="selectedImage"
+        *ngIf="imageUrl"
         [src]="imageUrl"
         class="preview-image"
         alt="Vista previa de la imagen"

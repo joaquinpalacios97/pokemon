@@ -17,7 +17,7 @@ public class PokemonMapperTest {
 
     @Test
     public void testToEntity() {
-        PokemonEntityMapper mapper = new PokemonEntityMapper(); // Crear una instancia del mapper
+        PokemonEntityMapper mapper = new PokemonEntityMapper();
 
         UUID pokemonId = UUID.randomUUID();
         Pokemon pokemon = Pokemon.builder()
@@ -42,7 +42,7 @@ public class PokemonMapperTest {
 
     @Test
     public void testToModel() {
-        PokemonEntityMapper mapper = new PokemonEntityMapper(); // Crear una instancia del mapper
+        PokemonEntityMapper mapper = new PokemonEntityMapper();
 
         UUID pokemonId = UUID.randomUUID();
         PokemonEntity pokemonEntity = new PokemonEntity();

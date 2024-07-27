@@ -42,9 +42,6 @@ public class UpdateGym implements GymUpdater {
 
         List<UUID> trainersIds = requestDTO.getTrainersIds();
 
-        //TODO : BUSCAR ENTRENADORES POR IDSSS(1 CALL)
-        //TODO : comparar la cant de ids en la request contra el resultado de la bd , si son diferentes exc
-
         return gymEntityMapper.toModel(gymRepository.save(gym));
     }
 }

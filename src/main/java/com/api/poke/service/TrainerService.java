@@ -7,7 +7,10 @@ import com.api.poke.controller.requests.UpdateTrainerRequestDTO;
 import com.api.poke.exceptions.PokemonNotFoundException;
 import com.api.poke.exceptions.TrainerNotFoundException;
 import com.api.poke.model.Pokemon;
+import com.api.poke.model.Status;
 import com.api.poke.model.Trainer;
+import com.api.poke.model.TrainerType;
+import com.api.poke.repository.ChallengeRepository;
 import com.api.poke.repository.PokemonRepository;
 import com.api.poke.repository.TrainerRepository;
 import com.api.poke.repository.entities.*;
@@ -19,6 +22,7 @@ import com.api.poke.repository.mappers.TrainerEntityMapper;
 import com.api.poke.usecases.GymFinder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +42,7 @@ public class TrainerService implements ITrainerService {
     MovementRepository movementRepository;
     PokemonEntityMapper pokemonEntityMapper;
     FullTrainerEntityMapper fullTrainerEntityMapper;
+    ChallengeRepository challengeRepository;
 
     @Override
     public List<Trainer> findAll() {
@@ -48,9 +53,16 @@ public class TrainerService implements ITrainerService {
                 .collect(Collectors.toList());
     }
 
+    @Override
     public Trainer saveTrainer(CreateTrainerRequestDTO requestDTO) {
+        return createAndSaveTrainer(requestDTO.getName(), TrainerType.CHALLENGER);
+    }
+
+
+    public Trainer createAndSaveTrainer(String name, TrainerType type) {
         Trainer trainer = Trainer.builder()
-                .name(requestDTO.getName())
+                .name(name)
+                .type(type)
                 .build();
 
         List<PokemonEntity> allPokemons = pokemonRepository.findAll();
@@ -91,8 +103,7 @@ public class TrainerService implements ITrainerService {
 
         TrainerEntity savedTrainerEntity = trainerRepository.save(trainerEntity);
 
-        return  fullTrainerEntityMapper.toModel(savedTrainerEntity);
-
+        return fullTrainerEntityMapper.toModel(savedTrainerEntity);
     }
 
     @Override
@@ -110,7 +121,7 @@ public class TrainerService implements ITrainerService {
         if (trainerEntity.isEmpty()) {
             throw new TrainerNotFoundException("Trainer not found for id " + id);
         }
-        return trainerEntityMapper.toModel(trainerEntity.get());
+        return fullTrainerEntityMapper.toModel(trainerEntity.get());
     }
 
     @Override
@@ -177,5 +188,6 @@ public class TrainerService implements ITrainerService {
        //trainerEntity.setPokemons(currentPokemons);
         return trainerEntityMapper.toModel(trainerRepository.save(trainerEntity));
     }
+
 
 }

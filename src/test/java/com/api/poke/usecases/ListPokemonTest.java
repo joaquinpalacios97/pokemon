@@ -33,7 +33,7 @@ public class ListPokemonTest {
 
     @Test
     public void testExecute_ReturnsListOfPokemons() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
         PokemonEntity pokemonEntity1 = new PokemonEntity();
@@ -54,10 +54,10 @@ public class ListPokemonTest {
         when(mapper.toModel(pokemonEntity1)).thenReturn(pokemon1);
         when(mapper.toModel(pokemonEntity2)).thenReturn(pokemon2);
 
-        // Act
+
         List<Pokemon> actualPokemonList = listPokemon.execute();
 
-        // Assert
+
         assertEquals(expectedPokemonList.size(), actualPokemonList.size());
         assertEquals(expectedPokemonList, actualPokemonList);
     }

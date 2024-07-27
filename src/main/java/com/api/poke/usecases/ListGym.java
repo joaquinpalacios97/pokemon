@@ -22,7 +22,7 @@ public class ListGym implements GymLister{
         return gymRepository
                 .findAll()
                 .stream()
-                .map(entity ->gymEntityMapper.toModel(entity))
+                .map(gymEntityMapper::toModel)
                 .collect(Collectors.toList());
     }
 }

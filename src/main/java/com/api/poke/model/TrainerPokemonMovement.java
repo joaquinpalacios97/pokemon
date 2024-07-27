@@ -8,7 +8,7 @@ import lombok.*;
 
 import java.util.UUID;
 @Builder
-@Data
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

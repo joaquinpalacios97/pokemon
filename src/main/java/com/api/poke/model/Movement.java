@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.UUID;
 
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+
 public class Movement {
 
     private UUID id;
@@ -25,6 +26,4 @@ public class Movement {
 
     private int pp;
 
-    /*@ManyToMany(mappedBy = "movements")
-    private List<Pokemon> pokemons;*/
 }

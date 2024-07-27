@@ -4,9 +4,10 @@ import com.api.poke.controller.responses.PokemonResponseDTO;
 import com.api.poke.model.Pokemon;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
+
 @Component
 public class PokemonPresenter {
-//ESTO SE ARMA DEL/ EN BASE AL MODELO .
     public PokemonResponseDTO toResponse(Pokemon pokemon) {
         return PokemonResponseDTO
                 .builder()
@@ -17,6 +18,7 @@ public class PokemonPresenter {
                 .evolutionLevel(pokemon.getEvolutionLevel())
                 .evolves(pokemon.isEvolves())
                 .attributes(pokemon.getAttributes())
+                .imageBase64(pokemon.getImageBase64())
                 .build();
     }
 }

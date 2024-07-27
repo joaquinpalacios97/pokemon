@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Pokemon } from '../pokemon';
-import { PokemonService } from '../pokemon.service';
+import { Pokemon } from '../model/pokemon';
+import { PokemonService } from '../service/pokemon.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,7 +9,13 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './update-pokemon.component.css',
 })
 export class UpdatePokemonComponent {
-  id: number;
+onFileSelected($event: Event) {
+throw new Error('Method not implemented.');
+}
+onSubmit() {
+throw new Error('Method not implemented.');
+}
+  id: string;
   poke: Pokemon = new Pokemon();
   imagenSeleccionada: File;
 
@@ -20,9 +26,9 @@ export class UpdatePokemonComponent {
   ) {}
 
   ngOnInit(): void {
-    // Obtener el ID del Pokémon de la URL
+
     this.id = this.route.snapshot.params['id'];
-    // Obtener los datos del Pokémon para mostrar en el formulario
+
     this.pokemonService.findPokemonById(this.id).subscribe({
       next: (dato: any) => {
         this.poke = dato;
@@ -31,16 +37,16 @@ export class UpdatePokemonComponent {
     });
   }
 
-  // Método para manejar la selección de la imagen
-  onFileSelected(event: any) {
+
+ /* onFileSelected(event: any) {
     this.imagenSeleccionada = event.target.files[0];
-  }
+  }*/
 
   goToListPokemon() {
     this.router.navigate(['/pokemones']);
   }
 
-  onSubmit() {
+/*  onSubmit() {
     if (this.imagenSeleccionada) {
       this.convertirImagenABase64(this.imagenSeleccionada)
         .then((base64String) => {
@@ -53,11 +59,11 @@ export class UpdatePokemonComponent {
     } else {
       this.enviarActualizacion();
     }
-  }
+  }*/
 
-  enviarActualizacion() {
-    // Solo enviar la imagenBase64 en lugar de la imagen completa
-    // this.poke.imagen = null; // Asegúrate de que no se esté enviando la imagen como File
+  /*enviarActualizacion() {
+    
+    // this.poke.imagen = null; 
     this.pokemonService.updatePokemon(this.id, this.poke).subscribe({
       next: (dato: any) => {
         this.goToListPokemon();
@@ -66,7 +72,7 @@ export class UpdatePokemonComponent {
     });
   }
 
-  // Método para convertir la imagen seleccionada a base64
+
   convertirImagenABase64(imagen: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
@@ -83,5 +89,5 @@ export class UpdatePokemonComponent {
         reject(error);
       };
     });
-  }
+  }*/
 }

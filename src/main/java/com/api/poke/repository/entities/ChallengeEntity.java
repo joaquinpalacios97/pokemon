@@ -1,16 +1,15 @@
 package com.api.poke.repository.entities;
 
+import com.api.poke.model.ChallengeProgress;
 import com.api.poke.model.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,17 +22,19 @@ public class ChallengeEntity {
     @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "ladder_id", referencedColumnName = "id")
     private LadderEntity ladders;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "enemy_trainer_id", referencedColumnName = "id")
     private TrainerEntity enemy;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "challenger_id", referencedColumnName = "id")
     private TrainerEntity challenger;
+
+    private ChallengeProgress progress;
 
     private Status status;
 

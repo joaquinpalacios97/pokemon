@@ -12,7 +12,7 @@ import java.util.UUID;
 @FieldDefaults(makeFinal = true)
 @Getter
 public class PokemonResponseDTO {
-//ESTO VA PARA EL FRONT
+
     UUID id;
     String name;
     PokemonType type;
@@ -20,4 +20,5 @@ public class PokemonResponseDTO {
     Integer evolutionLevel;
     boolean evolves;
     Attribute attributes;
+    String imageBase64;
 }

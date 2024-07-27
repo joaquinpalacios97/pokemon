@@ -7,12 +7,13 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.UUID;
 
 //ESTE YA ES EL TRANSFORMADO
-@Data
+@Setter
 @Getter
 @Builder
 public class Pokemon {
@@ -28,8 +29,10 @@ public class Pokemon {
     private Integer evolutionLevel;
 
     private boolean evolves;
-   // private byte[] image;
-    //private String imageBase64;
+
+  //  private byte[] image;
+
+    private String imageBase64;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "attributes_id", referencedColumnName = "id")

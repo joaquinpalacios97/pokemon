@@ -25,4 +25,5 @@ public class CreateTrainerRequestDTO {
     @NotEmpty(message = "Name cannot be empty")
     String name;
 
+
 }

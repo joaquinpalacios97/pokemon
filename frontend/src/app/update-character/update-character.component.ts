@@ -53,8 +53,7 @@ export class UpdateCharacterComponent {
   }
 
   enviarActualizacion() {
-    // Solo enviar la imagenBase64 en lugar de la imagen completa
-    // this.poke.imagen = null; // Asegúrate de que no se esté enviando la imagen como File
+    // this.poke.imagen = null; 
     this.charaService.updateCharacter(this.id, this.chara).subscribe({
       next: (dato: any) => {
         this.goToListChara();
@@ -63,7 +62,6 @@ export class UpdateCharacterComponent {
     });
   }
 
-  // Método para convertir la imagen seleccionada a base64
   convertirImagenABase64(imagen: File): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       const reader = new FileReader();

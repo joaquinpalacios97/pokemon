@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Pokemon } from '../pokemon';
-import { PokemonService } from '../pokemon.service';
+import { Pokemon } from '../model/pokemon';
+import { PokemonService } from '../service/pokemon.service';
 import { Router } from '@angular/router';
 import { Observer } from 'rxjs';
-
+import { pokemonType } from '../model/pokemon';
 @Component({
   selector: 'app-save-pokemon',
   templateUrl: './save-pokemon.component.html',
@@ -12,44 +12,53 @@ import { Observer } from 'rxjs';
 export class SavePokemonComponent {
   poke: Pokemon = new Pokemon();
   selectedImage: File | undefined;
-  imageUrl: string | ArrayBuffer | null = null; // Agrega esta línea para definir la propiedad imageUrl
+  imageUrl: string | ArrayBuffer | null = null; 
+  /*pokemonTypes = Object.values(pokemonType);*/
 
   constructor(private pokeService: PokemonService, private router: Router) {}
 
-  savePokemon() {
-    const formData = new FormData();
-    formData.append('nombre', this.poke.nombre);
-    formData.append('experiencia', this.poke.experiencia.toString());
-    formData.append('nivel_evolucion', this.poke.nivel_evolucion.toString());
-    formData.append('evoluciona', this.poke.evoluciona.toString());
-    if (this.selectedImage) {
-      formData.append('imagen', this.selectedImage, this.selectedImage.name);
-    }
-    this.pokeService.savePokemon(formData).subscribe({
-      next: (dato: any) => {
-        console.log(dato);
-        this.goToListPokemon();
-      },
-      error: (error) => console.log(error),
-    });
-  }
+  pokemonTypes = Object.keys(pokemonType).filter(key => isNaN(Number(key)));
 
-  onFileSelected(event: any) {
-    this.selectedImage = event.target.files[0];
-    if (this.selectedImage) {
-      const reader = new FileReader();
-      reader.readAsDataURL(this.selectedImage);
-      reader.onload = () => {
-        this.imageUrl = reader.result as string;
-      };
-    }
-  }
-
-  goToListPokemon() {
-    this.router.navigate(['/pokemones']);
-  }
-
-  onSubmit() {
-    this.savePokemon();
-  }
+      savePokemon() {
+        if (this.selectedImage) {
+          const reader = new FileReader();
+          reader.readAsDataURL(this.selectedImage);
+          reader.onload = () => {
+            this.poke.image_base64 = reader.result as string; // Guarda la imagen como Base64
+            this.sendPokemon();
+          };
+        } else {
+          this.sendPokemon();
+        }
+      }
+    
+      sendPokemon() {
+        this.pokeService.savePokemon(this.poke).subscribe({
+          next: (data: any) => {
+            console.log(data);
+            this.goToListPokemon();
+          },
+          error: (error) => console.log(error),
+        });
+      }
+    
+      onFileSelected(event: any) {
+        this.selectedImage = event.target.files[0];
+        if (this.selectedImage) {
+          const reader = new FileReader();
+          reader.readAsDataURL(this.selectedImage);
+          reader.onload = () => {
+            this.imageUrl = reader.result;
+          };
+        }
+      }
+    
+      goToListPokemon() {
+        this.router.navigate(['/pokemons']);
+      }
+    
+      onSubmit() {
+        this.savePokemon();
+      }
 }
+

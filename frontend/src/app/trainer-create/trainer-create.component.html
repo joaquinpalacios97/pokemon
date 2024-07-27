@@ -1,0 +1,47 @@
+<div>
+  
+  <div>
+    <label for="trainerName">Ingresa el nombre de tu entrenador :</label>
+    <input type="text" id="trainerName" [(ngModel)]="trainerName" placeholder="Enter trainer name">
+    <button (click)="createTrainer()">Create Trainer</button>
+    <p *ngIf="error" style="color: red;">{{ error }}</p>
+  </div>
+  
+  <div *ngIf="trainer">
+    
+    <p> ¡Hola! {{ trainer.name }} éste es tu equipo Pokémon</p>
+  
+    <div class="pokemon-container">
+      <div *ngFor="let pokeTrainer of trainer.poke_trainers" class="pokemon">
+        <div class="pokemon-info">
+          <h4>{{ pokeTrainer.pokemon.name }} ({{ pokeTrainer.pokemon.type }})</h4>
+          <img [src]="getImagenUrl(pokeTrainer.pokemon.image_base64)" alt="Pokemon Image" />
+          <h5>Attributes</h5>
+          <div class="attributes">
+            <div class="attribute-pair">
+              <p>HP: {{ pokeTrainer.pokemon.attributes.hp }}</p>
+              <p>Attack: {{ pokeTrainer.pokemon.attributes.attack }}</p>
+            </div>
+            <div class="attribute-pair">
+              <p>Defense: {{ pokeTrainer.pokemon.attributes.defense }}</p>
+              <p>Special Attack: {{ pokeTrainer.pokemon.attributes.sp_attack }}</p>
+            </div>
+            <div class="attribute-pair">
+              <p>Special Defense: {{ pokeTrainer.pokemon.attributes.sp_defense }}</p>
+              <p>Speed: {{ pokeTrainer.pokemon.attributes.speed }}</p>
+            </div>
+          </div>
+  
+          <h5>Movements</h5>
+          <div class="movements">
+            <div *ngFor="let movement of pokeTrainer.movements; let i = index">
+              <div class="movement-pair" *ngIf="i % 2 === 0">
+                <p>{{ pokeTrainer.movements[i].movement.name }}</p>
+                <p *ngIf="pokeTrainer.movements[i + 1]">{{ pokeTrainer.movements[i + 1].movement.name }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

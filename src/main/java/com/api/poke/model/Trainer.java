@@ -9,7 +9,7 @@ import lombok.*;
 import java.util.List;
 import java.util.UUID;
 
-@Data
+@Setter
 @Getter
 @Builder
 @NoArgsConstructor
@@ -21,6 +21,8 @@ public class Trainer {
     String name;
 
     private List<Pokemon> pokemons;
+
+    private TrainerType type;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY , mappedBy = "trainer")
     private List<TrainerPokemon> pokeTrainers;

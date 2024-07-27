@@ -1,7 +1,7 @@
 package com.api.poke.repository.mappers;
 
 import com.api.poke.model.*;
-import com.api.poke.repository.entities.TrainerEntity;
+import com.api.poke.repository.entities.*;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
@@ -21,10 +21,11 @@ public class FullTrainerEntityMapper {
                                 .pokemon(Pokemon.builder()
                                         .id(trainerPokemonEntity.getPokemon().getId())
                                         .name(trainerPokemonEntity.getPokemon().getName())
-                                                .type(trainerPokemonEntity.getPokemon().getType())
-                                                .experience(trainerPokemonEntity.getPokemon().getExperience())
-                                                .evolutionLevel(trainerPokemonEntity.getPokemon().getEvolutionLevel())
-                                                .evolves(trainerPokemonEntity.getPokemon().isEvolves())
+                                        .type(trainerPokemonEntity.getPokemon().getType())
+                                        .experience(trainerPokemonEntity.getPokemon().getExperience())
+                                        .evolutionLevel(trainerPokemonEntity.getPokemon().getEvolutionLevel())
+                                        .evolves(trainerPokemonEntity.getPokemon().isEvolves())
+                                        .imageBase64(trainerPokemonEntity.getPokemon().getImageBase64())
                                         .attributes(Attribute.builder()
                                                 .id(trainerPokemonEntity.getPokemon().getAttributes().getId())
                                                 .hp(trainerPokemonEntity.getPokemon().getAttributes().getHp())
@@ -55,5 +56,54 @@ public class FullTrainerEntityMapper {
         );
 
         return model;
+    }
+
+    public TrainerEntity toEntity(Trainer trainer) {
+        TrainerEntity entity = new TrainerEntity();
+        entity.setId(trainer.getId());
+        entity.setName(trainer.getName());
+
+        entity.setPokeTrainers(
+                trainer.getPokeTrainers().stream()
+                        .map(trainerPokemon -> TrainerPokemonEntity.builder()
+                                .id(trainerPokemon.getId())
+                                .pokemon(PokemonEntity.builder()
+                                        .id(trainerPokemon.getPokemon().getId())
+                                        .name(trainerPokemon.getPokemon().getName())
+                                        .type(trainerPokemon.getPokemon().getType())
+                                        .experience(trainerPokemon.getPokemon().getExperience())
+                                        .evolutionLevel(trainerPokemon.getPokemon().getEvolutionLevel())
+                                        .evolves(trainerPokemon.getPokemon().isEvolves())
+                                        .imageBase64(trainerPokemon.getPokemon().getImageBase64())
+                                        .attributes(AttributeEntity.builder()
+                                                .id(trainerPokemon.getPokemon().getAttributes().getId())
+                                                .hp(trainerPokemon.getPokemon().getAttributes().getHp())
+                                                .attack(trainerPokemon.getPokemon().getAttributes().getAttack())
+                                                .defense(trainerPokemon.getPokemon().getAttributes().getDefense())
+                                                .sp_attack(trainerPokemon.getPokemon().getAttributes().getSp_attack())
+                                                .sp_defense(trainerPokemon.getPokemon().getAttributes().getSp_defense())
+                                                .speed(trainerPokemon.getPokemon().getAttributes().getSpeed())
+                                                .build())
+                                        .build())
+                                .trainer(entity)
+                                .trainerPokemonMovements(trainerPokemon.getTrainerPokemonMovements().stream()
+                                        .map(trainerPokemonMovement -> TrainerPokemonMovementEntity.builder()
+                                                .id(trainerPokemonMovement.getId())
+                                                .movement(MovementEntity.builder()
+                                                        .id(trainerPokemonMovement.getMovement().getId())
+                                                        .name(trainerPokemonMovement.getMovement().getName())
+                                                        .type(trainerPokemonMovement.getMovement().getType())
+                                                        .power(trainerPokemonMovement.getMovement().getPower())
+                                                        .accuracy(trainerPokemonMovement.getMovement().getAccuracy())
+                                                        .pp(trainerPokemonMovement.getMovement().getPp())
+                                                        .build())
+                                                .trainerPokemon(TrainerPokemonEntity.builder().id(trainerPokemonMovement.getTrainerPokemon().getId()).build())
+                                                .build())
+                                        .collect(Collectors.toList()))
+                                .build())
+                        .collect(Collectors.toList())
+        );
+
+        return entity;
     }
 }

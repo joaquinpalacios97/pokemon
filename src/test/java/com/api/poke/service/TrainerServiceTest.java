@@ -35,17 +35,14 @@ public class TrainerServiceTest {
     @Mock
     private TrainerEntityMapper trainerEntityMapper;
 
-    // Objeto a ser probado, en el cual se inyectan los mocks
     @InjectMocks
     private TrainerService trainerService;
 
-    // Configuración antes de cada prueba
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
-    // Prueba para verificar que findById() devuelve un Trainer existente
     @Test
     public void testFindById_ExistingId_ReturnsTrainer() {
         UUID id = UUID.randomUUID();
@@ -54,32 +51,27 @@ public class TrainerServiceTest {
         Trainer trainer = new Trainer();
         trainer.setId(id);
 
-        // Configuración de comportamiento del mock
         when(trainerRepository.findById(id)).thenReturn(Optional.of(trainerEntity));
         when(trainerEntityMapper.toModel(trainerEntity)).thenReturn(trainer);
 
-        // Llamada al método a probar
         Trainer result = trainerService.findById(id);
 
-        // Verificación de resultados
         assertEquals(trainer, result);
     }
 
-    // Prueba para verificar que findById() lanza una excepción cuando el ID no existe
     @Test
     public void testFindById_NonExistingId_ThrowsException() {
         UUID id = UUID.randomUUID();
 
-        // Configuración de comportamiento del mock
+
         when(trainerRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Verificación de que se lanza una excepción
         assertThrows(TrainerNotFoundException.class, () -> trainerService.findById(id));
     }
 
     @Test
     public void testSaveTrainer_ValidRequestDTO_SavesTrainer() {
-        // Arrange
+
         CreateTrainerRequestDTO requestDTO = CreateTrainerRequestDTO.builder()
                 .name("Ash")
                 .pokemons(Collections.emptyList())
@@ -95,33 +87,30 @@ public class TrainerServiceTest {
         when(trainerEntityMapper.toModel(any(TrainerEntity.class))).thenReturn(trainer);
         when(trainerRepository.save(any(TrainerEntity.class))).thenReturn(trainerEntity);
 
-        // Act
         Trainer savedTrainer = trainerService.saveTrainer(requestDTO);
 
-        // Assert
         assertNotNull(savedTrainer);
         assertEquals(trainer.getName(), savedTrainer.getName());
     }
 
     @Test
     public void testDeleteTrainer_ExistingId_DeletesTrainer() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         TrainerEntity trainerEntity = new TrainerEntity();
         when(trainerRepository.findById(id)).thenReturn(Optional.of(trainerEntity));
-        // Act
+
         trainerService.deleteTrainer(id);
-        // Assert
+
         verify(trainerRepository, times(1)).deleteById(id);
     }
 
     @Test
     public void testDeleteTrainer_NonExistingId_ThrowsTrainerNotFoundException() {
-        // Arrange
+
         UUID id = UUID.randomUUID();
         when(trainerRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(TrainerNotFoundException.class, () -> {
             trainerService.deleteTrainer(id);
         });
@@ -129,7 +118,7 @@ public class TrainerServiceTest {
 
     @Test
     public void testListTrainers_ReturnsListOfTrainers() {
-        // Arrange
+
         UUID id1 = UUID.randomUUID();
         UUID id2 = UUID.randomUUID();
 
@@ -137,10 +126,9 @@ public class TrainerServiceTest {
         trainerEntity1.setId(id1);
         TrainerEntity trainerEntity2 = new TrainerEntity();
         trainerEntity2.setId(id2);
-        // Simular la respuesta del repositorio con las entidades creadas
+
         List<TrainerEntity> trainerEntitiesList = Arrays.asList(trainerEntity1, trainerEntity2);
 
-        // Convertir las entidades de entrenador a modelos de entrenador
         Trainer trainer1 = new Trainer();
         trainer1.setId(id1);
         Trainer trainer2 = new Trainer();
@@ -159,7 +147,7 @@ public class TrainerServiceTest {
 
     @Test
     public void testUpdateTrainerPokemon_ValidRequest_UpdatesPokemon() {
-        // Arrange
+
         UUID trainerId = UUID.randomUUID();
         UUID oldPokemonId = UUID.randomUUID();
         UUID newPokemonId = UUID.randomUUID();
@@ -187,28 +175,28 @@ public class TrainerServiceTest {
         when(pokemonRepository.findById(newPokemonId)).thenReturn(Optional.of(newPokemon));
         when(trainerRepository.save(any(TrainerEntity.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        // Act
+
         trainerService.updateTrainerPokemon(trainerId, requestDTO);
 
-        // Assert
+
         verify(trainerRepository).save(trainerEntity);
         assertEquals(3, trainerEntity.getPokemons().size());
 
-        // Verifica que el Pokémon antiguo fue reemplazado
+
         assertTrue(trainerEntity.getPokemons().stream().anyMatch(pokemon -> pokemon.getId().equals(newPokemonId)));
 
-        // Verifica que los otros Pokémon no fueron modificados
+
         assertTrue(trainerEntity.getPokemons().stream().anyMatch(pokemon -> pokemon.getId().equals(otherPokemonId1)));
         assertTrue(trainerEntity.getPokemons().stream().anyMatch(pokemon -> pokemon.getId().equals(otherPokemonId2)));
 
-        // Verifica que el Pokémon antiguo no está presente en la lista
+
         assertFalse(trainerEntity.getPokemons().stream().anyMatch(pokemon -> pokemon.getId().equals(oldPokemonId)));
     }
 
 
     @Test
     public void testUpdateTrainerPokemons_ValidRequest_UpdatesPokemons() {
-        // Arrange
+
         UUID trainerId = UUID.randomUUID();
         List<UUID> newPokemonIds = new ArrayList<>();
 
@@ -226,11 +214,10 @@ public class TrainerServiceTest {
         when(trainerRepository.findById(trainerId)).thenReturn(Optional.of(trainerEntity));
         when(pokemonRepository.findById(any(UUID.class))).thenReturn(Optional.of(new PokemonEntity()));
 
-        // Act
+
         trainerService.updateTrainerPokemons(trainerId, requestDTO);
 
-        // Assert
-        // Verifica que los Pokémon se hayan actualizado correctamente
+
         verify(trainerRepository).save(trainerEntity);
         assertEquals(newPokemonIds.size(), trainerEntity.getPokemons().size());
     }
